@@ -8,6 +8,18 @@ import WordCloudCanvas, { type CanvasHandle } from './components/WordCloudCanvas
 import ExportBar from './components/ExportBar';
 import './App.css';
 
+// Simple cloud SVG icon for the mobile header logo
+function CloudIcon() {
+  return (
+    <svg width="22" height="16" viewBox="0 0 22 16" fill="none" aria-hidden="true">
+      <path
+        d="M17.5 6.5a4.5 4.5 0 00-8.74-1.5A3.5 3.5 0 104.5 12H17a3 3 0 000-6 2.99 2.99 0 00-.5.04z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
 // Sample text for demo
 const SAMPLE_TEXT = `The quick brown fox jumps over the lazy dog. Technology innovation software development programming code algorithm data structure machine learning artificial intelligence neural network deep learning natural language processing computer vision cloud computing web development frontend backend database server client API framework library component function variable object class interface type module package import export async await promise callback event loop thread process memory stack heap queue array linked list hash map tree graph binary search sort merge quick heap insertion selection bubble algorithm complexity time space optimal efficient scalable distributed parallel concurrent asynchronous synchronous reactive functional object oriented procedural declarative imperative paradigm pattern design architecture microservice monolith container orchestration deployment continuous integration delivery testing unit integration end to end performance security authentication authorization encryption protocol HTTP REST GraphQL WebSocket TCP UDP DNS SSL TLS certificate domain server client request response header body status code middleware router controller model view template engine render component state props lifecycle hook effect context reducer store action dispatch subscribe provider consumer middleware thunk saga observable stream pipe filter map reduce transform aggregate query mutation subscription schema resolver directive fragment union interface enum scalar input type field argument default value validation pagination cursor offset limit sort order ascending descending filter search index cache invalidation refresh token session cookie storage local session indexed database query optimization join relationship foreign key primary key unique constraint index trigger stored procedure transaction rollback commit isolation level consistency durability availability partition tolerance consensus replication sharding cluster node leader follower election heartbeat timeout retry circuit breaker rate limit throttle backpressure buffer overflow memory leak garbage collection reference counting mark sweep compact generation nursery survivor tenure`;
 
@@ -22,11 +34,24 @@ function App() {
   const { words, generating, stats, generate } = useWordCloud();
   const canvasRef = useRef<CanvasHandle>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem('wc-dark-mode');
+    if (saved !== null) return saved === 'true';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
   const [toast, setToast] = useState<{ message: string; type: ToastType; visible: boolean }>({
     message: '',
     type: 'info',
     visible: false,
   });
+
+  // Apply dark mode to document
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+    localStorage.setItem('wc-dark-mode', String(darkMode));
+  }, [darkMode]);
+
+  const toggleDarkMode = useCallback(() => setDarkMode((d) => !d), []);
 
   const showToast = useCallback((message: string, type: ToastType = 'info') => {
     setToast({ message, type, visible: true });
@@ -94,6 +119,21 @@ function App() {
 
   return (
     <div className="app">
+      {/* Mobile-only top header */}
+      <header className="mobile-header">
+        <div className="mobile-header-brand">
+          <CloudIcon />
+          <span className="mobile-header-title">WordCloud Studio</span>
+        </div>
+        <button
+          className="theme-toggle"
+          onClick={toggleDarkMode}
+          aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+        >
+          {darkMode ? '☀️' : '🌙'}
+        </button>
+      </header>
+
       {/* Mobile overlay */}
       <div
         className={`sidebar-overlay ${sidebarOpen ? 'visible' : ''}`}
@@ -108,6 +148,8 @@ function App() {
           onRandomize={handleRandomize}
           generating={generating}
           stats={stats}
+          darkMode={darkMode}
+          onToggleDark={toggleDarkMode}
         />
       </div>
 

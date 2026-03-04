@@ -11,6 +11,8 @@ interface Props {
   onRandomize: () => void;
   generating: boolean;
   stats: CloudStats;
+  darkMode: boolean;
+  onToggleDark: () => void;
 }
 
 export default function ControlPanel({
@@ -20,6 +22,8 @@ export default function ControlPanel({
   onRandomize,
   generating,
   stats,
+  darkMode,
+  onToggleDark,
 }: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const maskFileRef = useRef<HTMLInputElement>(null);
@@ -61,7 +65,16 @@ export default function ControlPanel({
 
   return (
     <div className="control-panel">
-      <h1 className="app-title">WordCloud Studio</h1>
+      <div className="app-title-row">
+        <h1 className="app-title">WordCloud Studio</h1>
+        <button
+          className="theme-toggle"
+          onClick={onToggleDark}
+          aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+        >
+          {darkMode ? '☀️' : '🌙'}
+        </button>
+      </div>
 
       {/* Stats */}
       <div className="stats-bar">

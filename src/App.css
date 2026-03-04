@@ -21,6 +21,28 @@
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
   --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
   --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --mobile-header-height: 52px;
+  --checker-a: #e2e5ea;
+  --checker-b: #eef0f4;
+  --overlay-bg: rgba(255, 255, 255, 0.85);
+}
+
+[data-theme="dark"] {
+  --bg: #0f1117;
+  --surface: #1a1d2e;
+  --surface-hover: #21253a;
+  --border: #2d3154;
+  --border-light: #1e2235;
+  --text: #e4e6f0;
+  --text-muted: #9096b8;
+  --text-dim: #5c6494;
+  --primary-light: rgba(108, 92, 231, 0.18);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3);
+  --checker-a: #1e2235;
+  --checker-b: #252a42;
+  --overlay-bg: rgba(15, 17, 23, 0.85);
 }
 
 * {
@@ -71,10 +93,17 @@ body {
   padding: 20px 16px;
 }
 
+/* ===== App Title Row (desktop sidebar) ===== */
+.app-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
 .app-title {
   font-size: 20px;
   font-weight: 800;
-  margin-bottom: 16px;
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -430,7 +459,7 @@ input[type="color"]:hover {
   justify-content: center;
   position: relative;
   background:
-    repeating-conic-gradient(#e2e5ea 0% 25%, #eef0f4 0% 50%) 50% / 20px 20px;
+    repeating-conic-gradient(var(--checker-a) 0% 25%, var(--checker-b) 0% 50%) 50% / 20px 20px;
   border-radius: var(--radius);
   overflow: hidden;
   min-height: 0;
@@ -458,7 +487,7 @@ input[type="color"]:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--overlay-bg);
   backdrop-filter: blur(4px);
   z-index: 10;
   gap: 14px;
@@ -540,6 +569,84 @@ input[type="color"]:hover {
   background: var(--text-muted);
 }
 
+/* ===== Theme Toggle Button ===== */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  cursor: pointer;
+  font-size: 16px;
+  transition: all var(--transition);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.theme-toggle:hover {
+  background: var(--surface-hover);
+  border-color: var(--text-dim);
+}
+
+/* ===== Mobile Header ===== */
+.mobile-header {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--mobile-header-height);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  z-index: 102;
+  padding: 0 16px;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow);
+}
+
+.mobile-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary);
+}
+
+.mobile-header-title {
+  font-size: 17px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.3px;
+}
+
+/* ===== Dark mode form overrides ===== */
+[data-theme="dark"] input[type="range"] {
+  background: var(--border);
+}
+
+[data-theme="dark"] input[type="range"]::-webkit-slider-thumb {
+  border-color: var(--surface);
+}
+
+[data-theme="dark"] input[type="range"]::-moz-range-thumb {
+  border-color: var(--surface);
+}
+
+[data-theme="dark"] select,
+[data-theme="dark"] .text-input,
+[data-theme="dark"] .text-field,
+[data-theme="dark"] .num-input {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
+}
+
 /* ===== Mobile Menu Toggle ===== */
 .mobile-menu-toggle {
   display: none;
@@ -598,7 +705,10 @@ input[type="color"]:hover {
 .sidebar-overlay {
   display: none;
   position: fixed;
-  inset: 0;
+  top: var(--mobile-header-height);
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(2px);
   z-index: 99;
@@ -618,6 +728,15 @@ input[type="color"]:hover {
     height: 100dvh;
   }
 
+  .mobile-header {
+    display: flex;
+  }
+
+  /* Hide title in the sidebar on mobile — it lives in the header */
+  .app-title-row {
+    display: none;
+  }
+
   .mobile-menu-toggle {
     display: flex;
   }
@@ -633,7 +752,7 @@ input[type="color"]:hover {
 
   .sidebar {
     position: fixed;
-    top: 0;
+    top: var(--mobile-header-height);
     left: 0;
     bottom: 0;
     width: 85vw;
@@ -656,6 +775,7 @@ input[type="color"]:hover {
     height: 100vh;
     height: 100dvh;
     padding: 16px;
+    padding-top: calc(var(--mobile-header-height) + 16px);
     padding-bottom: 88px;
   }
 

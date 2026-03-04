@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import type { CloudSettings, ScaleMode, SpiralType, RotationMode, ColorMode, MaskShape, PresetName } from '../types';
-import { CANVAS_PRESETS, FONT_FAMILIES, FONT_WEIGHTS, PRESETS, DEFAULT_SETTINGS } from '../types';
+import { CANVAS_PRESETS, FONT_FAMILIES, FONT_WEIGHTS, PRESETS } from '../types';
 import { PALETTES } from '../utils/palettes';
 import type { CloudStats } from '../hooks/useWordCloud';
 

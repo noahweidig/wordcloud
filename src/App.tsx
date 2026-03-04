@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import type { CloudSettings } from './types';
 import { DEFAULT_SETTINGS, FONT_FAMILIES, FONT_WEIGHTS } from './types';
 import { PALETTES } from './utils/palettes';
@@ -11,6 +11,9 @@ import './App.css';
 // Sample text for demo
 const SAMPLE_TEXT = `The quick brown fox jumps over the lazy dog. Technology innovation software development programming code algorithm data structure machine learning artificial intelligence neural network deep learning natural language processing computer vision cloud computing web development frontend backend database server client API framework library component function variable object class interface type module package import export async await promise callback event loop thread process memory stack heap queue array linked list hash map tree graph binary search sort merge quick heap insertion selection bubble algorithm complexity time space optimal efficient scalable distributed parallel concurrent asynchronous synchronous reactive functional object oriented procedural declarative imperative paradigm pattern design architecture microservice monolith container orchestration deployment continuous integration delivery testing unit integration end to end performance security authentication authorization encryption protocol HTTP REST GraphQL WebSocket TCP UDP DNS SSL TLS certificate domain server client request response header body status code middleware router controller model view template engine render component state props lifecycle hook effect context reducer store action dispatch subscribe provider consumer middleware thunk saga observable stream pipe filter map reduce transform aggregate query mutation subscription schema resolver directive fragment union interface enum scalar input type field argument default value validation pagination cursor offset limit sort order ascending descending filter search index cache invalidation refresh token session cookie storage local session indexed database query optimization join relationship foreign key primary key unique constraint index trigger stored procedure transaction rollback commit isolation level consistency durability availability partition tolerance consensus replication sharding cluster node leader follower election heartbeat timeout retry circuit breaker rate limit throttle backpressure buffer overflow memory leak garbage collection reference counting mark sweep compact generation nursery survivor tenure`;
 
+// Toast notification types
+type ToastType = 'success' | 'error' | 'info';
+
 function App() {
   const [settings, setSettings] = useState<CloudSettings>({
     ...DEFAULT_SETTINGS,
@@ -18,6 +21,19 @@ function App() {
   });
   const { words, generating, stats, generate } = useWordCloud();
   const canvasRef = useRef<CanvasHandle>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [toast, setToast] = useState<{ message: string; type: ToastType; visible: boolean }>({
+    message: '',
+    type: 'info',
+    visible: false,
+  });
+
+  const showToast = useCallback((message: string, type: ToastType = 'info') => {
+    setToast({ message, type, visible: true });
+    setTimeout(() => {
+      setToast((prev) => ({ ...prev, visible: false }));
+    }, 2500);
+  }, []);
 
   const handleChange = useCallback((patch: Partial<CloudSettings>) => {
     setSettings((prev) => ({ ...prev, ...patch }));
@@ -25,6 +41,7 @@ function App() {
 
   const handleGenerate = useCallback(() => {
     generate(settings);
+    setSidebarOpen(false);
   }, [generate, settings]);
 
   const handleRandomize = useCallback(() => {
@@ -58,15 +75,32 @@ function App() {
 
     setSettings((prev) => {
       const next = { ...prev, ...patch };
-      // Auto-generate after randomize
       setTimeout(() => generate(next), 50);
       return next;
     });
+    setSidebarOpen(false);
   }, [generate]);
+
+  // Close sidebar on Escape key
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && sidebarOpen) {
+        setSidebarOpen(false);
+      }
+    };
+    document.addEventListener('keydown', handleKey);
+    return () => document.removeEventListener('keydown', handleKey);
+  }, [sidebarOpen]);
 
   return (
     <div className="app">
-      <div className="sidebar">
+      {/* Mobile overlay */}
+      <div
+        className={`sidebar-overlay ${sidebarOpen ? 'visible' : ''}`}
+        onClick={() => setSidebarOpen(false)}
+      />
+
+      <div className={`sidebar ${sidebarOpen ? 'sidebar-open' : ''}`}>
         <ControlPanel
           settings={settings}
           onChange={handleChange}
@@ -76,6 +110,7 @@ function App() {
           stats={stats}
         />
       </div>
+
       <div className="main">
         <div className="canvas-container">
           {words.length === 0 && !generating && (
@@ -91,7 +126,25 @@ function App() {
           )}
           <WordCloudCanvas ref={canvasRef} words={words} settings={settings} />
         </div>
-        <ExportBar canvasRef={canvasRef} />
+        <ExportBar canvasRef={canvasRef} showToast={showToast} />
+      </div>
+
+      {/* Mobile menu toggle */}
+      <button
+        className={`mobile-menu-toggle ${sidebarOpen ? 'is-open' : ''}`}
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        aria-label={sidebarOpen ? 'Close settings' : 'Open settings'}
+      >
+        <div className="menu-icon">
+          <span />
+          <span />
+          <span />
+        </div>
+      </button>
+
+      {/* Toast notification */}
+      <div className={`toast toast-${toast.type} ${toast.visible ? 'toast-visible' : ''}`}>
+        {toast.message}
       </div>
     </div>
   );

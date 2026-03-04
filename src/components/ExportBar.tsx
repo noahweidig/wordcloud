@@ -2,26 +2,31 @@ import type { CanvasHandle } from './WordCloudCanvas';
 
 interface Props {
   canvasRef: React.RefObject<CanvasHandle | null>;
+  showToast: (message: string, type?: 'success' | 'error' | 'info') => void;
 }
 
-export default function ExportBar({ canvasRef }: Props) {
+export default function ExportBar({ canvasRef, showToast }: Props) {
   const downloadPNG = async (transparent: boolean) => {
     const blob = await canvasRef.current?.exportPNG(transparent);
-    if (!blob) return;
+    if (!blob) {
+      showToast('Nothing to export yet. Generate a word cloud first.', 'error');
+      return;
+    }
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     a.download = `wordcloud${transparent ? '-transparent' : ''}.png`;
     a.click();
     URL.revokeObjectURL(url);
+    showToast('PNG downloaded!', 'success');
   };
 
   const copyToClipboard = async () => {
     const ok = await canvasRef.current?.copyToClipboard();
     if (ok) {
-      alert('Image copied to clipboard!');
+      showToast('Image copied to clipboard!', 'success');
     } else {
-      alert('Failed to copy. Your browser may not support clipboard API.');
+      showToast('Failed to copy. Try downloading instead.', 'error');
     }
   };
 

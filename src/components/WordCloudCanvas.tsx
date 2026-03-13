@@ -121,6 +121,8 @@ const WordCloudCanvas = forwardRef<CanvasHandle, Props>(({ words, settings }, re
   return (
     <canvas
       ref={canvasRef}
+      role="img"
+      aria-label={`Word cloud visualization with ${words.length} words`}
       width={settings.canvasWidth}
       height={settings.canvasHeight}
       style={{
@@ -130,7 +132,9 @@ const WordCloudCanvas = forwardRef<CanvasHandle, Props>(({ words, settings }, re
         borderRadius: 8,
         boxShadow: '0 2px 16px rgba(0,0,0,0.12)',
       }}
-    />
+    >
+      Word cloud visualization with {words.length} words.
+    </canvas>
   );
 });
 

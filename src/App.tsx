@@ -185,7 +185,7 @@ function App() {
       </button>
 
       {/* Toast notification */}
-      <div className={`toast toast-${toast.type} ${toast.visible ? 'toast-visible' : ''}`}>
+      <div className={`toast toast-${toast.type} ${toast.visible ? 'toast-visible' : ''}`} role="alert" aria-live="assertive">
         {toast.message}
       </div>
     </div>

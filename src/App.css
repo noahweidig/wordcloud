@@ -278,6 +278,7 @@ select:hover {
 select:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px var(--primary-light);
+  outline: none;
 }
 
 input[type="color"] {
@@ -308,6 +309,7 @@ input[type="color"]:hover {
 .num-input:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px var(--primary-light);
+  outline: none;
 }
 
 .text-field {
@@ -323,6 +325,7 @@ input[type="color"]:hover {
 .text-field:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px var(--primary-light);
+  outline: none;
 }
 
 /* ===== Textarea ===== */
@@ -342,6 +345,7 @@ input[type="color"]:hover {
 .text-input:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px var(--primary-light);
+  outline: none;
 }
 
 /* ===== Toggle ===== */
@@ -388,6 +392,11 @@ input[type="color"]:hover {
   transform: scale(0.97);
 }
 
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--primary-light), 0 0 0 1px var(--primary);
+}
+
 .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -430,6 +439,11 @@ input[type="color"]:hover {
 .btn-small:hover {
   background: var(--surface-hover);
   border-color: var(--text-dim);
+}
+
+.btn-small:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--primary-light), 0 0 0 1px var(--primary);
 }
 
 /* ===== Palette Preview ===== */
@@ -589,6 +603,11 @@ input[type="color"]:hover {
 .theme-toggle:hover {
   background: var(--surface-hover);
   border-color: var(--text-dim);
+}
+
+.theme-toggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--primary-light), 0 0 0 1px var(--primary);
 }
 
 /* ===== Mobile Header ===== */

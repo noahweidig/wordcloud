@@ -5,6 +5,21 @@ import { tokenize, countFrequencies, filterWords, scaleSize } from '../utils/tex
 import { PALETTES, getPaletteColor } from '../utils/palettes';
 import { drawBuiltInMask, getMaskData, loadCustomMask } from '../utils/masks';
 
+interface D3Word {
+  text?: string;
+  font?: string;
+  style?: string;
+  weight?: string | number;
+  rotate?: number;
+  size?: number;
+  padding?: number;
+  x?: number;
+  y?: number;
+  // Custom properties added for our application
+  color?: string;
+  count?: number;
+}
+
 export interface PlacedWord {
   text: string;
   size: number;
@@ -148,20 +163,20 @@ export function useWordCloud() {
             }))
           )
           .padding(settings.padding)
-          .rotate((d: any) => d.rotate ?? 0)
+          .rotate((d: D3Word) => d.rotate ?? 0)
           .font(settings.fontFamily)
           .fontWeight(settings.fontWeight)
-          .fontSize((d: any) => d.size ?? 16)
+          .fontSize((d: D3Word) => d.size ?? 16)
           .spiral(settings.spiral)
-          .on('end', (output: any[]) => {
-            const result: PlacedWord[] = output.map((w: any) => ({
+          .on('end', (output: D3Word[]) => {
+            const result: PlacedWord[] = output.map((w: D3Word) => ({
               text: w.text!,
               size: w.size!,
               x: w.x!,
               y: w.y!,
               rotate: w.rotate ?? 0,
-              color: (w as any).color ?? '#333',
-              count: (w as any).count ?? 1,
+              color: w.color ?? '#333',
+              count: w.count ?? 1,
               font: settings.fontFamily,
               weight: settings.fontWeight,
             }));

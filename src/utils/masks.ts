@@ -148,19 +148,20 @@ function drawCloudShape(
 }
 
 /**
- * Create a mask bitmap (boolean array) from a canvas.
- * Returns an array where true = word can be placed there.
+ * Create a mask bitmap (Uint8Array) from a canvas.
+ * Returns an array where 1 = word can be placed there.
+ * Using Uint8Array instead of boolean[] for better performance and memory efficiency.
  */
 export function getMaskData(
   canvas: HTMLCanvasElement
-): boolean[] {
+): Uint8Array {
   const ctx = canvas.getContext('2d')!;
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const data = imageData.data;
-  const mask: boolean[] = new Array(canvas.width * canvas.height);
+  const mask = new Uint8Array(canvas.width * canvas.height);
   for (let i = 0; i < mask.length; i++) {
     // Check alpha channel - pixel is "inside" mask if alpha > 128
-    mask[i] = data[i * 4 + 3] > 128;
+    mask[i] = data[i * 4 + 3] > 128 ? 1 : 0;
   }
   return mask;
 }

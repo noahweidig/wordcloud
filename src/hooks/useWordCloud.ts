@@ -200,7 +200,7 @@ export function useWordCloud() {
           const px = Math.round(word.x + centerX);
           const py = Math.round(word.y + centerY);
           if (px < 0 || px >= w || py < 0 || py >= h) return false;
-          return maskData[py * w + px];
+          return maskData[py * w + px] === 1;
         });
 
         setWords(maskedWords);

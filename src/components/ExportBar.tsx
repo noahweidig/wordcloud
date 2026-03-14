@@ -3,9 +3,10 @@ import type { CanvasHandle } from './WordCloudCanvas';
 interface Props {
   canvasRef: React.RefObject<CanvasHandle | null>;
   showToast: (message: string, type?: 'success' | 'error' | 'info') => void;
+  hasWords: boolean;
 }
 
-export default function ExportBar({ canvasRef, showToast }: Props) {
+export default function ExportBar({ canvasRef, showToast, hasWords }: Props) {
   const downloadPNG = async (transparent: boolean) => {
     const blob = await canvasRef.current?.exportPNG(transparent);
     if (!blob) {
@@ -30,15 +31,32 @@ export default function ExportBar({ canvasRef, showToast }: Props) {
     }
   };
 
+  const title = hasWords ? undefined : 'Generate a word cloud first';
+
   return (
     <div className="export-bar">
-      <button className="btn btn-small" onClick={() => downloadPNG(false)}>
+      <button
+        className="btn btn-small"
+        onClick={() => downloadPNG(false)}
+        disabled={!hasWords}
+        title={title}
+      >
         Download PNG
       </button>
-      <button className="btn btn-small" onClick={() => downloadPNG(true)}>
+      <button
+        className="btn btn-small"
+        onClick={() => downloadPNG(true)}
+        disabled={!hasWords}
+        title={title}
+      >
         PNG (transparent)
       </button>
-      <button className="btn btn-small" onClick={copyToClipboard}>
+      <button
+        className="btn btn-small"
+        onClick={copyToClipboard}
+        disabled={!hasWords}
+        title={title}
+      >
         Copy to clipboard
       </button>
     </div>

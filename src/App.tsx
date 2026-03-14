@@ -168,7 +168,7 @@ function App() {
           )}
           <WordCloudCanvas ref={canvasRef} words={words} settings={settings} />
         </div>
-        <ExportBar canvasRef={canvasRef} showToast={showToast} />
+        <ExportBar canvasRef={canvasRef} showToast={showToast} hasWords={words.length > 0} />
       </div>
 
       {/* Mobile menu toggle */}

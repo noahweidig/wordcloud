@@ -105,6 +105,7 @@ export default function ControlPanel({
         <summary className="section-title">Text Input</summary>
         <textarea
           className="text-input"
+          aria-label="Source text for word cloud"
           placeholder="Paste your text here..."
           value={settings.text}
           onChange={(e) => onChange({ text: e.target.value })}
@@ -114,7 +115,7 @@ export default function ControlPanel({
           <button className="btn btn-small" onClick={() => fileInputRef.current?.click()}>
             Upload .txt
           </button>
-          <button className="btn btn-small" onClick={() => onChange({ text: '' })}>Clear</button>
+          <button className="btn btn-small" onClick={() => onChange({ text: '' })} disabled={!settings.text}>Clear</button>
         </div>
         <input
           ref={fileInputRef}

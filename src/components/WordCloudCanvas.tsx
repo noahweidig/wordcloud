@@ -16,33 +16,34 @@ export interface CanvasHandle {
 const WordCloudCanvas = forwardRef<CanvasHandle, Props>(({ words, settings }, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  // Extract only properties that directly affect rendering to avoid unnecessary re-renders when other settings change.
+  const { canvasWidth, canvasHeight, bgAlpha, bgColor, wordAlpha, maskShape, customMaskUrl } = settings;
+
   // Draw words onto canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d')!;
-    const w = settings.canvasWidth;
-    const h = settings.canvasHeight;
+    const w = canvasWidth;
+    const h = canvasHeight;
     canvas.width = w;
     canvas.height = h;
 
     // Background
-    if (settings.bgAlpha > 0) {
-      ctx.globalAlpha = settings.bgAlpha;
-      ctx.fillStyle = settings.bgColor;
+    if (bgAlpha > 0) {
+      ctx.globalAlpha = bgAlpha;
+      ctx.fillStyle = bgColor;
       ctx.fillRect(0, 0, w, h);
       ctx.globalAlpha = 1;
     } else {
       ctx.clearRect(0, 0, w, h);
     }
 
-    // Draw mask outline as subtle guide (optional visual)
-    // Just draw the words
     const centerX = w / 2;
     const centerY = h / 2;
 
-    ctx.globalAlpha = settings.wordAlpha;
+    ctx.globalAlpha = wordAlpha;
 
     for (const word of words) {
       ctx.save();
@@ -59,10 +60,10 @@ const WordCloudCanvas = forwardRef<CanvasHandle, Props>(({ words, settings }, re
     ctx.globalAlpha = 1;
 
     // Apply mask clipping (post-render) for better visual result
-    if (settings.maskShape !== 'none') {
-      applyMaskClip(canvas, settings);
+    if (maskShape !== 'none') {
+      applyMaskClip(canvas, maskShape, customMaskUrl);
     }
-  }, [words, settings]);
+  }, [words, canvasWidth, canvasHeight, bgAlpha, bgColor, wordAlpha, maskShape, customMaskUrl]);
 
   useImperativeHandle(ref, () => ({
     async exportPNG(transparent: boolean): Promise<Blob | null> {
@@ -93,7 +94,7 @@ const WordCloudCanvas = forwardRef<CanvasHandle, Props>(({ words, settings }, re
         ctx.globalAlpha = 1;
 
         if (settings.maskShape !== 'none') {
-          await applyMaskClip(exportCanvas, settings);
+          await applyMaskClip(exportCanvas, settings.maskShape, settings.customMaskUrl);
         }
 
         return new Promise((resolve) => exportCanvas.toBlob(resolve, 'image/png'));
@@ -123,8 +124,8 @@ const WordCloudCanvas = forwardRef<CanvasHandle, Props>(({ words, settings }, re
       ref={canvasRef}
       role="img"
       aria-label={`Word cloud visualization with ${words.length} words`}
-      width={settings.canvasWidth}
-      height={settings.canvasHeight}
+      width={canvasWidth}
+      height={canvasHeight}
       style={{
         maxWidth: '100%',
         maxHeight: '100%',
@@ -140,48 +141,36 @@ const WordCloudCanvas = forwardRef<CanvasHandle, Props>(({ words, settings }, re
 
 /**
  * Post-render mask clipping: make pixels outside the mask transparent.
+ * Uses hardware-accelerated destination-in composite operation instead of manual pixel loop.
  */
-async function applyMaskClip(canvas: HTMLCanvasElement, settings: CloudSettings): Promise<void> {
+async function applyMaskClip(canvas: HTMLCanvasElement, maskShape: MaskShape, customMaskUrl: string | null): Promise<void> {
   const w = canvas.width;
   const h = canvas.height;
 
   // Create mask canvas
   let maskCanvas: HTMLCanvasElement;
 
-  if (settings.maskShape === 'custom' && settings.customMaskUrl) {
+  if (maskShape === 'custom' && customMaskUrl) {
     try {
-      maskCanvas = await loadCustomMask(settings.customMaskUrl, w, h);
+      maskCanvas = await loadCustomMask(customMaskUrl, w, h);
     } catch {
       return;
     }
-  } else if (settings.maskShape !== 'none' && settings.maskShape !== 'custom') {
+  } else if (maskShape !== 'none' && maskShape !== 'custom') {
     maskCanvas = document.createElement('canvas');
     maskCanvas.width = w;
     maskCanvas.height = h;
     const mctx = maskCanvas.getContext('2d')!;
-    drawBuiltInMask(mctx, settings.maskShape as MaskShape, w, h);
+    drawBuiltInMask(mctx, maskShape as MaskShape, w, h);
   } else {
     return;
   }
 
-  // Get mask pixel data
-  const mctx = maskCanvas.getContext('2d')!;
-  const maskImageData = mctx.getImageData(0, 0, w, h);
-  const maskPixels = maskImageData.data;
-
-  // Get canvas pixel data
+  // Use GPU hardware-accelerated composite operation
   const ctx = canvas.getContext('2d')!;
-  const imageData = ctx.getImageData(0, 0, w, h);
-  const pixels = imageData.data;
-
-  // Zero out alpha for pixels outside mask
-  for (let i = 0; i < pixels.length; i += 4) {
-    if (maskPixels[i + 3] < 128) {
-      pixels[i + 3] = 0;
-    }
-  }
-
-  ctx.putImageData(imageData, 0, 0);
+  ctx.globalCompositeOperation = 'destination-in';
+  ctx.drawImage(maskCanvas, 0, 0);
+  ctx.globalCompositeOperation = 'source-over'; // Reset to default
 }
 
 WordCloudCanvas.displayName = 'WordCloudCanvas';

@@ -86,7 +86,18 @@ export default function ControlPanel({
       {/* Quick Actions */}
       <div className="section">
         <div className="button-row">
-          <button className="btn btn-primary" onClick={onGenerate} disabled={generating || !settings.text.trim()}>
+          <button
+            className="btn btn-primary"
+            onClick={onGenerate}
+            disabled={generating || !settings.text.trim()}
+            title={
+              generating
+                ? "Generating..."
+                : !settings.text.trim()
+                  ? "Add text to generate a word cloud"
+                  : "Generate word cloud (Ctrl/Cmd + Enter)"
+            }
+          >
             {generating ? 'Generating...' : 'Generate'}
           </button>
           <button className="btn btn-secondary" onClick={onRandomize}>
@@ -109,13 +120,28 @@ export default function ControlPanel({
           placeholder="Paste your text here..."
           value={settings.text}
           onChange={(e) => onChange({ text: e.target.value })}
+          onKeyDown={(e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+              e.preventDefault();
+              if (!generating && settings.text.trim()) {
+                onGenerate();
+              }
+            }
+          }}
           rows={6}
         />
         <div className="button-row">
           <button className="btn btn-small" onClick={() => fileInputRef.current?.click()}>
             Upload .txt
           </button>
-          <button className="btn btn-small" onClick={() => onChange({ text: '' })} disabled={!settings.text}>Clear</button>
+          <button
+            className="btn btn-small"
+            onClick={() => onChange({ text: '' })}
+            disabled={!settings.text}
+            title={!settings.text ? "Text is already empty" : undefined}
+          >
+            Clear
+          </button>
         </div>
         <input
           ref={fileInputRef}

@@ -49,7 +49,7 @@ export default function ExportBar({ canvasRef, showToast, hasWords }: Props) {
         disabled={!hasWords}
         title={title}
       >
-        PNG (transparent)
+        Download PNG (transparent)
       </button>
       <button
         className="btn btn-small"

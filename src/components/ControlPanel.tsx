@@ -111,34 +111,6 @@ export default function ControlPanel({
         <span>Used: <b>{stats.wordsUsed}</b></span>
       </div>
 
-      {/* Quick Actions */}
-      <div className="section">
-        <div className="button-row">
-          <button
-            className="btn btn-primary"
-            onClick={onGenerate}
-            disabled={generating || !settings.text.trim()}
-            title={
-              generating
-                ? "Generating..."
-                : !settings.text.trim()
-                  ? "Add text to generate a word cloud"
-                  : "Generate word cloud (Ctrl/Cmd + Enter)"
-            }
-          >
-            {generating ? 'Generating...' : 'Generate'}
-          </button>
-          <button className="btn btn-secondary" onClick={onRandomize}>
-            Randomize
-          </button>
-        </div>
-        <div className="button-row">
-          <button className="btn btn-small" onClick={() => applyPreset('minimal')}>Minimal</button>
-          <button className="btn btn-small" onClick={() => applyPreset('vibrant')}>Vibrant</button>
-          <button className="btn btn-small" onClick={() => applyPreset('poster')}>Poster</button>
-        </div>
-      </div>
-
       {/* Text Input */}
       <details className="section" open>
         <summary className="section-title">Text Input</summary>
@@ -221,6 +193,34 @@ export default function ControlPanel({
           />
         </div>
       </details>
+
+      {/* Quick Actions */}
+      <div className="section">
+        <div className="button-row">
+          <button
+            className="btn btn-primary"
+            onClick={onGenerate}
+            disabled={generating || !settings.text.trim()}
+            title={
+              generating
+                ? "Generating..."
+                : !settings.text.trim()
+                  ? "Add text to generate a word cloud"
+                  : "Generate word cloud (Ctrl/Cmd + Enter)"
+            }
+          >
+            {generating ? 'Generating...' : 'Generate'}
+          </button>
+          <button className="btn btn-secondary" onClick={onRandomize}>
+            Randomize
+          </button>
+        </div>
+        <div className="button-row">
+          <button className="btn btn-small" onClick={() => applyPreset('minimal')}>Minimal</button>
+          <button className="btn btn-small" onClick={() => applyPreset('vibrant')}>Vibrant</button>
+          <button className="btn btn-small" onClick={() => applyPreset('poster')}>Poster</button>
+        </div>
+      </div>
 
       {/* Word Weighting */}
       <details className="section">

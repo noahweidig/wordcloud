@@ -855,6 +855,12 @@ input[type="color"]:hover {
     min-height: 100px;
   }
 
+  .theme-toggle {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+  }
+
   .export-bar {
     padding: 12px 0 0;
     gap: 8px;

@@ -13,6 +13,7 @@ interface Props {
   stats: CloudStats;
   darkMode: boolean;
   onToggleDark: () => void;
+  onError?: (msg: string) => void;
 }
 
 export default function ControlPanel({
@@ -24,6 +25,7 @@ export default function ControlPanel({
   stats,
   darkMode,
   onToggleDark,
+  onError,
 }: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const maskFileRef = useRef<HTMLInputElement>(null);
@@ -31,6 +33,19 @@ export default function ControlPanel({
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    // Security: File size and type validation
+    if (file.size > 5 * 1024 * 1024) { // 5MB limit
+      onError?.('File too large. Maximum size is 5MB.');
+      e.target.value = '';
+      return;
+    }
+    if (!file.name.toLowerCase().endsWith('.txt') || file.type !== 'text/plain') {
+      onError?.('Invalid file type. Only .txt files are allowed.');
+      e.target.value = '';
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = (ev) => {
       const text = ev.target?.result as string;
@@ -43,6 +58,19 @@ export default function ControlPanel({
   const handleMaskUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    // Security: File size and type validation
+    if (file.size > 5 * 1024 * 1024) { // 5MB limit
+      onError?.('Image too large. Maximum size is 5MB.');
+      e.target.value = '';
+      return;
+    }
+    if (file.type !== 'image/png') {
+      onError?.('Invalid image type. Only PNG images are allowed for masks.');
+      e.target.value = '';
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = (ev) => {
       const url = ev.target?.result as string;
@@ -119,6 +147,7 @@ export default function ControlPanel({
           aria-label="Source text for word cloud"
           placeholder="Paste your text here..."
           value={settings.text}
+          maxLength={100000} // Limit to prevent DoS via excessive memory allocation
           onChange={(e) => onChange({ text: e.target.value })}
           onKeyDown={(e) => {
             if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
@@ -187,6 +216,7 @@ export default function ControlPanel({
             className="text-field"
             placeholder="word1, word2, ..."
             value={settings.customStopwords}
+            maxLength={2000} // Limit input length to avoid memory issues
             onChange={(e) => onChange({ customStopwords: e.target.value })}
           />
         </div>

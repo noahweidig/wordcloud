@@ -150,6 +150,7 @@ function App() {
           stats={stats}
           darkMode={darkMode}
           onToggleDark={toggleDarkMode}
+          onError={(msg) => showToast(msg, 'error')}
         />
       </div>
 

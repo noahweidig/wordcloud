@@ -17,37 +17,48 @@ export interface WordFrequency {
  * Splits on whitespace and punctuation, optionally removes numbers.
  */
 export function tokenize(text: string, options: TokenOptions): string[] {
-  // Split on non-word characters (whitespace, punctuation)
-  let tokens = text.split(/[^\w']+/).filter(Boolean);
+  // Use match to avoid creating empty string elements and filter(Boolean)
+  // Replaces 6 sequential array iterations with a single loop
+  const matches = text.match(/[\w']+/g);
+  if (!matches) return [];
 
-  if (options.lowercase) {
-    tokens = tokens.map((t) => t.toLowerCase());
+  const customSet = new Set(
+    options.customStopwords.map((w: string) => w.trim().toLowerCase()).filter(Boolean)
+  );
+
+  const result: string[] = [];
+  const { lowercase, removeNumbers, removeStopwords } = options;
+  const numRegex = /^\d+$/;
+
+  for (let i = 0; i < matches.length; i++) {
+    let t = matches[i];
+
+    if (lowercase) {
+      t = t.toLowerCase();
+    }
+
+    if (removeNumbers && numRegex.test(t)) {
+      continue;
+    }
+
+    const lower = lowercase ? t : t.toLowerCase();
+
+    if (removeStopwords) {
+      if (STOPWORDS.has(lower) || customSet.has(lower)) {
+        continue;
+      }
+    } else if (customSet.has(lower)) {
+      continue;
+    }
+
+    if (t.length <= 1 && lower !== 'i') {
+      continue;
+    }
+
+    result.push(t);
   }
 
-  if (options.removeNumbers) {
-    tokens = tokens.filter((t) => !/^\d+$/.test(t));
-  }
-
-  if (options.removeStopwords) {
-    const customSet = new Set(
-      options.customStopwords.map((w) => w.trim().toLowerCase()).filter(Boolean)
-    );
-    tokens = tokens.filter((t) => {
-      const lower = t.toLowerCase();
-      return !STOPWORDS.has(lower) && !customSet.has(lower);
-    });
-  } else if (options.customStopwords.length > 0) {
-    // Even if default stopwords are off, still remove custom ones
-    const customSet = new Set(
-      options.customStopwords.map((w) => w.trim().toLowerCase()).filter(Boolean)
-    );
-    tokens = tokens.filter((t) => !customSet.has(t.toLowerCase()));
-  }
-
-  // Remove very short tokens (single characters except "I")
-  tokens = tokens.filter((t) => t.length > 1 || t.toLowerCase() === 'i');
-
-  return tokens;
+  return result;
 }
 
 /**

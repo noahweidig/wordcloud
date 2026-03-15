@@ -415,6 +415,16 @@ input[type="color"]:hover {
   transform: translateY(-1px);
 }
 
+.btn-primary:not(:disabled) {
+  animation: primary-pulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+@keyframes primary-pulse {
+  to {
+    box-shadow: 0 0 0 8px rgba(108, 92, 231, 0);
+  }
+}
+
 .btn-secondary {
   flex: 1;
   background: linear-gradient(135deg, var(--secondary), var(--secondary-hover));

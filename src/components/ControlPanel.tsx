@@ -125,6 +125,7 @@ export default function ControlPanel({
                   ? "Add text to generate a word cloud"
                   : "Generate word cloud (Ctrl/Cmd + Enter)"
             }
+            aria-label="Generate – important next step"
           >
             {generating ? 'Generating...' : 'Generate'}
           </button>

@@ -8,3 +8,7 @@
 ## 2024-05-18 - Sequential Array Operations Bottleneck
 **Learning:** Chaining multiple `.split()`, `.filter()`, and `.map()` calls on large arrays causes significant performance bottlenecks due to intermediate array allocations.
 **Action:** When processing large collections, combine filtering and transformation operations into a single pass using a `for` loop to avoid creating intermediate arrays.
+
+## 2024-05-19 - Efficient Filtering on Sorted Arrays
+**Learning:** Using `.filter().slice()` on a pre-sorted array causes full array traversal and intermediate array creation, scaling O(n) which is slow for large datasets.
+**Action:** Replace `.filter().slice()` on sorted arrays with a single `for` loop that uses `break` when thresholds or max size limits are reached, achieving O(min(n, limit)) and avoiding intermediate allocations.

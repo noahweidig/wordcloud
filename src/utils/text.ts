@@ -83,7 +83,18 @@ export function filterWords(
   minFreq: number,
   maxWords: number
 ): WordFrequency[] {
-  return words.filter((w) => w.count >= minFreq).slice(0, maxWords);
+  // ⚡ Bolt Optimization:
+  // Replaced `words.filter().slice()` with a single for loop.
+  // This avoids creating a large intermediate array and allows early exit
+  // when maxWords is reached, reducing complexity from O(N) to O(min(N, maxWords)).
+  const result: WordFrequency[] = [];
+  for (let i = 0; i < words.length; i++) {
+    if (result.length >= maxWords) break;
+    if (words[i].count >= minFreq) {
+      result.push(words[i]);
+    }
+  }
+  return result;
 }
 
 /**

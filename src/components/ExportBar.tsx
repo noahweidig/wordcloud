@@ -36,10 +36,11 @@ export default function ExportBar({ canvasRef, showToast, hasWords }: Props) {
   return (
     <div className="export-bar">
       <button
-        className="btn btn-small"
+        className={`btn btn-small ${hasWords ? 'btn-focus' : ''}`}
         onClick={() => downloadPNG(false)}
         disabled={!hasWords}
         title={title}
+        aria-label="Download PNG – important next step"
       >
         Download PNG
       </button>

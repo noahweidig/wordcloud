@@ -187,7 +187,7 @@ export default function ControlPanel({
               checked={settings.removeStopwords}
               onChange={(e) => onChange({ removeStopwords: e.target.checked })}
             />
-            Remove stopwords
+            Remove common words
           </label>
         </div>
         <div className="control-row">
@@ -211,7 +211,7 @@ export default function ControlPanel({
           </label>
         </div>
         <div className="control-row">
-          <label htmlFor="custom-stopwords" className="control-label">Custom stopwords</label>
+          <label htmlFor="custom-stopwords" className="control-label">Words to exclude</label>
           <input
             id="custom-stopwords"
             type="text"

@@ -211,8 +211,9 @@ export default function ControlPanel({
           </label>
         </div>
         <div className="control-row">
-          <label className="control-label">Custom stopwords</label>
+          <label htmlFor="custom-stopwords" className="control-label">Custom stopwords</label>
           <input
+            id="custom-stopwords"
             type="text"
             className="text-field"
             placeholder="word1, word2, ..."

@@ -211,7 +211,7 @@ export default function ControlPanel({
           </label>
         </div>
         <div className="control-row">
-          <label htmlFor="custom-stopwords" className="control-label">Words to exclude</label>
+          <label htmlFor="custom-stopwords" className="control-label">Words to remove</label>
           <input
             id="custom-stopwords"
             type="text"

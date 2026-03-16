@@ -895,10 +895,11 @@ input[type="color"]:hover {
   .export-bar {
     padding: 12px 0 0;
     gap: 8px;
+    flex-direction: column;
   }
 
   .export-bar .btn-small {
-    flex: 1;
+    width: 100%;
     text-align: center;
   }
 

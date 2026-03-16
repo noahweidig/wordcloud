@@ -158,7 +158,9 @@ function App() {
         <div className="canvas-container">
           {words.length === 0 && !generating && (
             <div className="empty-state">
-              <p>Add text and click <b>Generate</b>.</p>
+              <h2>WordCloud Studio</h2>
+              <p>Create beautiful, custom word clouds from any text.</p>
+              <p>Paste text in the sidebar and click <b>Generate</b>.</p>
             </div>
           )}
           {generating && (

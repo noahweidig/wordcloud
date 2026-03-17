@@ -535,6 +535,12 @@ input[type="color"]:hover {
   max-width: 300px;
 }
 
+.empty-state-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
 .loading-overlay {
   position: absolute;
   inset: 0;

@@ -12,3 +12,6 @@
 ## 2024-05-19 - Efficient Filtering on Sorted Arrays
 **Learning:** Using `.filter().slice()` on a pre-sorted array causes full array traversal and intermediate array creation, scaling O(n) which is slow for large datasets.
 **Action:** Replace `.filter().slice()` on sorted arrays with a single `for` loop that uses `break` when thresholds or max size limits are reached, achieving O(min(n, limit)) and avoiding intermediate allocations.
+## 2025-03-17 - [Uint8ClampedArray for Canvas Operations]
+**Learning:** Converting canvas `ImageData` into custom `Uint8Array` masks using JS loops blocks the main thread and drastically increases memory pressure. The `ImageData.data` (`Uint8ClampedArray`) provides O(1) direct buffer access to RGBA components.
+**Action:** Always use native browser arrays returned by Canvas APIs directly. When masking or manipulating pixels, perform math on the index (e.g., `(y * width + x) * 4 + 3` for alpha) instead of doing zero-copy iterations.

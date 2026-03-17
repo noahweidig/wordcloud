@@ -200,7 +200,8 @@ export function useWordCloud() {
           const px = Math.round(word.x + centerX);
           const py = Math.round(word.y + centerY);
           if (px < 0 || px >= w || py < 0 || py >= h) return false;
-          return maskData[py * w + px] === 1;
+          // Direct lookup in RGBA array (index * 4 + 3 is the alpha channel)
+          return maskData[(py * w + px) * 4 + 3] > 128;
         });
 
         setWords(maskedWords);

@@ -460,7 +460,11 @@ export default function ControlPanel({
         </div>
         {settings.maskShape === 'custom' && (
           <div className="control-row">
-            <button className="btn btn-small" onClick={() => maskFileRef.current?.click()}>
+            <button
+              className={`btn btn-small ${!settings.customMaskUrl ? 'btn-focus' : ''}`}
+              onClick={() => maskFileRef.current?.click()}
+              aria-label="Upload custom PNG mask – important next step"
+            >
               {settings.customMaskUrl ? 'Change mask image' : 'Upload PNG mask'}
             </button>
             <input

@@ -148,22 +148,18 @@ function drawCloudShape(
 }
 
 /**
- * Create a mask bitmap (Uint8Array) from a canvas.
- * Returns an array where 1 = word can be placed there.
- * Using Uint8Array instead of boolean[] for better performance and memory efficiency.
+ * Get mask pixel data from a canvas.
+ * Returns the raw RGBA Uint8ClampedArray to avoid expensive O(n) iteration on the main thread.
+ * Consumers should check the alpha channel (index * 4 + 3) directly.
  */
 export function getMaskData(
   canvas: HTMLCanvasElement
-): Uint8Array {
+): Uint8ClampedArray {
   const ctx = canvas.getContext('2d')!;
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  const data = imageData.data;
-  const mask = new Uint8Array(canvas.width * canvas.height);
-  for (let i = 0; i < mask.length; i++) {
-    // Check alpha channel - pixel is "inside" mask if alpha > 128
-    mask[i] = data[i * 4 + 3] > 128 ? 1 : 0;
-  }
-  return mask;
+  // ⚡ Bolt Optimization:
+  // Returning the raw ImageData.data directly avoids a massive O(n) loop
+  // (e.g., 2 million iterations for a 1080p canvas) that would block the main thread.
+  return ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 }
 
 /**

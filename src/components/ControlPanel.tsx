@@ -146,7 +146,7 @@ export default function ControlPanel({
         <textarea
           className="text-input"
           aria-label="Source text for word cloud"
-          placeholder="Paste your text here..."
+          placeholder="Paste text"
           value={settings.text}
           maxLength={100000} // Limit to prevent DoS via excessive memory allocation
           onChange={(e) => onChange({ text: e.target.value })}

@@ -894,8 +894,24 @@ input[type="color"]:hover {
   }
 
   .text-input {
-    font-size: 14px;
+    font-size: 16px;
     min-height: 100px;
+  }
+
+  .text-field,
+  .num-input {
+    font-size: 16px;
+    padding: 10px 12px;
+    min-height: 44px;
+  }
+
+  input[type="color"] {
+    width: 44px;
+    height: 44px;
+  }
+
+  select {
+    font-size: 16px;
   }
 
   .theme-toggle {

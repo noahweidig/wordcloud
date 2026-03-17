@@ -160,7 +160,25 @@ function App() {
             <div className="empty-state">
               <h2>WordCloud Studio</h2>
               <p>Create beautiful, custom word clouds from any text.</p>
-              <p>Paste text in the sidebar and click <b>Generate</b>.</p>
+              <div className="empty-state-actions">
+                {settings.text.trim() ? (
+                  <button
+                    className="btn btn-primary"
+                    onClick={handleGenerate}
+                    aria-label="Generate Word Cloud"
+                  >
+                    Generate Word Cloud
+                  </button>
+                ) : (
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() => setSidebarOpen(true)}
+                    aria-label="Open settings to add text"
+                  >
+                    Add text to begin
+                  </button>
+                )}
+              </div>
             </div>
           )}
           {generating && (

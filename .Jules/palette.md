@@ -13,3 +13,7 @@
 ## 2024-05-25 - Keyboard Shortcuts for Primary Actions
 **Learning:** For primary text input forms, power users expect keyboard shortcuts (like Ctrl/Cmd + Enter) to trigger the primary action (like "Generate") so they don't have to switch to the mouse.
 **Action:** Always add `onKeyDown` listeners to primary textareas for instant action submission via `Ctrl/Cmd + Enter`, and surface these shortcuts in button tooltips (`title` attribute) so users can discover them. Also add tooltips to explain disabled states when clear.
+
+## 2024-05-24 - Empty States Should Drive Action, Not Just Inform
+**Learning:** Static instructions referring to off-screen UI elements (like "paste text in the sidebar", which is hidden on mobile) cause friction.
+**Action:** Replace instructional text in empty states with context-aware, actionable buttons that either initiate the primary action immediately or navigate the user directly to where the action can be taken.

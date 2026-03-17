@@ -176,6 +176,7 @@ export function loadCustomMask(
 ): Promise<HTMLCanvasElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
+    img.crossOrigin = 'anonymous'; // Prevent canvas tainting for cross-origin images
     img.onload = () => {
       const canvas = document.createElement('canvas');
       canvas.width = width;

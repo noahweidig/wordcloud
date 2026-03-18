@@ -40,7 +40,7 @@ export default function ExportBar({ canvasRef, showToast, hasWords }: Props) {
         onClick={() => downloadPNG(false)}
         disabled={!hasWords}
         title={title}
-        aria-label="Download PNG – important next step"
+        aria-label="Download PNG"
       >
         Download PNG
       </button>

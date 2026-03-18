@@ -125,7 +125,7 @@ export default function ControlPanel({
                   ? "Add text to generate a word cloud"
                   : "Generate word cloud (Ctrl/Cmd + Enter)"
             }
-            aria-label="Generate Word Cloud – important next step"
+            aria-label="Generate Word Cloud"
           >
             {generating ? 'Generating...' : 'Generate Word Cloud'}
           </button>
@@ -464,7 +464,7 @@ export default function ControlPanel({
             <button
               className={`btn btn-small ${!settings.customMaskUrl ? 'btn-focus' : ''}`}
               onClick={() => maskFileRef.current?.click()}
-              aria-label="Upload custom PNG mask – important next step"
+              aria-label="Upload custom PNG mask"
             >
               {settings.customMaskUrl ? 'Change mask image' : 'Upload PNG mask'}
             </button>

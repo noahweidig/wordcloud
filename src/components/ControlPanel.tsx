@@ -145,7 +145,7 @@ export default function ControlPanel({
         <summary className="section-title">Text Input</summary>
         <textarea
           id="source-text-input"
-          className="text-input"
+          className={`text-input ${!settings.text.trim() ? 'text-input-attention' : ''}`}
           aria-label="Source text for word cloud"
           placeholder="Paste text"
           value={settings.text}

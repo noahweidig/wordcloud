@@ -105,7 +105,7 @@ export default function ControlPanel({
       </div>
 
       {/* Stats */}
-      <div className="stats-bar">
+      <div className="stats-bar" aria-live="polite">
         <span>Total: <b>{stats.totalWords}</b></span>
         <span>Unique: <b>{stats.uniqueWords}</b></span>
         <span>Used: <b>{stats.wordsUsed}</b></span>
@@ -144,6 +144,7 @@ export default function ControlPanel({
       <details className="section" open>
         <summary className="section-title">Text Input</summary>
         <textarea
+          id="source-text-input"
           className="text-input"
           aria-label="Source text for word cloud"
           placeholder="Paste text"

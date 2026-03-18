@@ -17,3 +17,7 @@
 ## 2024-05-24 - Empty States Should Drive Action, Not Just Inform
 **Learning:** Static instructions referring to off-screen UI elements (like "paste text in the sidebar", which is hidden on mobile) cause friction.
 **Action:** Replace instructional text in empty states with context-aware, actionable buttons that either initiate the primary action immediately or navigate the user directly to where the action can be taken.
+
+## 2024-06-25 - Empty State Continuity
+**Learning:** When a toggle state (like a mobile sidebar) only works on small screens, primary CTAs that trigger it fail silently on desktop. Focusing the logical next input field provides a fallback that works universally and improves the flow.
+**Action:** Always auto-focus the next logical input field when a CTA opens a panel or transitions states, especially if the visual state change might be hidden on certain viewports.

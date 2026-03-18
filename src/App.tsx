@@ -172,8 +172,13 @@ function App() {
                 ) : (
                   <button
                     className="btn btn-secondary"
-                    onClick={() => setSidebarOpen(true)}
-                    aria-label="Open settings to add text"
+                    onClick={() => {
+                      setSidebarOpen(true);
+                      setTimeout(() => {
+                        document.getElementById('source-text-input')?.focus();
+                      }, 50);
+                    }}
+                    aria-label="Open settings and focus text input to begin"
                   >
                     Add text to begin
                   </button>

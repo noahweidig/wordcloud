@@ -161,6 +161,9 @@ export default function ControlPanel({
           }}
           rows={6}
         />
+        <div className="control-label" style={{ textAlign: 'right' }}>
+          {settings.text.length} / 100,000
+        </div>
         <div className="button-row">
           <button className="btn btn-small" onClick={() => fileInputRef.current?.click()}>
             Upload .txt
@@ -222,6 +225,9 @@ export default function ControlPanel({
             maxLength={2000} // Limit input length to avoid memory issues
             onChange={(e) => onChange({ customStopwords: e.target.value })}
           />
+          <div className="control-label" style={{ textAlign: 'right' }}>
+            {settings.customStopwords.length} / 2,000
+          </div>
         </div>
       </details>
 

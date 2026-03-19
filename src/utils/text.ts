@@ -66,13 +66,25 @@ export function tokenize(text: string, options: TokenOptions): string[] {
  * Returns sorted by frequency descending.
  */
 export function countFrequencies(tokens: string[]): WordFrequency[] {
+  // ⚡ Bolt Optimization:
+  // 1. Used pre-allocated array based on Map size instead of Array.from().map()
+  //    to reduce intermediate array allocations.
+  // 2. Used undefined check instead of logical OR for map lookups.
+  // 3. Replaced for..of with standard for loop.
   const freq = new Map<string, number>();
-  for (const token of tokens) {
-    freq.set(token, (freq.get(token) || 0) + 1);
+  for (let i = 0; i < tokens.length; i++) {
+    const token = tokens[i];
+    const current = freq.get(token);
+    freq.set(token, current === undefined ? 1 : current + 1);
   }
-  return Array.from(freq.entries())
-    .map(([text, count]) => ({ text, count }))
-    .sort((a, b) => b.count - a.count);
+
+  const result = new Array<WordFrequency>(freq.size);
+  let index = 0;
+  for (const [text, count] of freq.entries()) {
+    result[index++] = { text, count };
+  }
+
+  return result.sort((a, b) => b.count - a.count);
 }
 
 /**

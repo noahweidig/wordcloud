@@ -208,7 +208,10 @@ function App() {
                   </svg>
                 </div>
                 <h2>WordCloud Studio</h2>
-                <p>Create beautiful, custom word clouds from any text — paste, upload, and customize.</p>
+                <p>
+                  Transform your text into beautiful visualizations.<br />
+                  Paste your text, customize the design, and export your word cloud.
+                </p>
                 <div className="empty-state-actions">
                   {settings.text.trim() ? (
                     <button

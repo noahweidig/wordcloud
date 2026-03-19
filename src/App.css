@@ -364,6 +364,11 @@ input[type="color"]:hover {
   outline: none;
 }
 
+.text-input-attention {
+  border-color: var(--primary);
+  animation: primary-pulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
 /* ===== Toggle ===== */
 .toggle {
   display: flex;

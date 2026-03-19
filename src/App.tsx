@@ -219,7 +219,7 @@ function App() {
                       onClick={handleGenerate}
                       aria-label="Generate Word Cloud"
                     >
-                      Generate Word Cloud
+                      Generate
                     </button>
                   ) : (
                     <button

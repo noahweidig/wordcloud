@@ -223,7 +223,7 @@ function App() {
                     </button>
                   ) : (
                     <button
-                      className="btn btn-secondary"
+                      className="btn btn-primary"
                       onClick={() => {
                         setSidebarOpen(true);
                         setTimeout(() => {

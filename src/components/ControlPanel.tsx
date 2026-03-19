@@ -310,7 +310,7 @@ export default function ControlPanel({
           />
         </div>
         <div className="control-row">
-          <label className="control-label">BG opacity: {settings.bgAlpha.toFixed(2)}</label>
+          <label className="control-label">Background opacity: {settings.bgAlpha.toFixed(2)}</label>
           <input
             type="range" min={0} max={1} step={0.05}
             value={settings.bgAlpha}

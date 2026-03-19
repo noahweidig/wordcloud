@@ -21,3 +21,7 @@
 ## 2024-06-25 - Empty State Continuity
 **Learning:** When a toggle state (like a mobile sidebar) only works on small screens, primary CTAs that trigger it fail silently on desktop. Focusing the logical next input field provides a fallback that works universally and improves the flow.
 **Action:** Always auto-focus the next logical input field when a CTA opens a panel or transitions states, especially if the visual state change might be hidden on certain viewports.
+
+## 2024-06-25 - Character Counts on Limited Inputs
+**Learning:** When text inputs have a maximum length (e.g., to prevent DoS or memory issues), silently enforcing the limit causes frustration when users don't know why their input was truncated.
+**Action:** Always provide a visual character count indicator near constrained text inputs to clearly set expectations.

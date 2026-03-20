@@ -210,8 +210,8 @@ function App() {
                 </div>
                 <h2>WordCloud Studio</h2>
                 <p>
-                  Transform your text into beautiful visualizations.<br />
-                  Paste your text, customize the design, and export your word cloud.
+                  Create beautiful word clouds.<br />
+                  Paste text, customize the design, and export.
                 </p>
                 <div className="empty-state-actions">
                   {settings.text.trim() ? (

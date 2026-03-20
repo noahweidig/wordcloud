@@ -55,14 +55,15 @@ export default function ExportBar({ canvasRef, showToast, hasWords }: Props) {
       <span className="export-bar-label">Export</span>
 
       <button
-        className={`btn btn-small ${hasWords ? 'export-primary' : ''}`}
+        className={`btn btn-small ${hasWords ? 'export-primary has-badge' : ''}`}
         onClick={() => downloadPNG(false)}
         disabled={!hasWords}
         title={disabledTitle ?? 'Download PNG with background'}
-        aria-label="Download PNG"
+        aria-label={hasWords ? 'Download PNG – ready to export' : 'Download PNG'}
       >
         <DownloadIcon />
         PNG
+        {hasWords && <span className="notification-badge" aria-hidden="true" />}
       </button>
 
       <button

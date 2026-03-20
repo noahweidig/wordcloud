@@ -964,6 +964,30 @@ input[type="color"]:focus-visible {
   color: var(--primary-hover) !important;
 }
 
+/* Notification Badge for Export Button */
+.has-badge {
+  position: relative;
+  overflow: visible;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  border: 2px solid var(--surface);
+  animation: badge-pulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+@keyframes badge-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
 /* ===== Toast ===== */
 .toast {
   position: fixed;

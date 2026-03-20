@@ -159,10 +159,11 @@ function App() {
       <div
         className={`sidebar-overlay ${sidebarOpen ? 'visible' : ''}`}
         onClick={() => setSidebarOpen(false)}
+        aria-hidden="true"
       />
 
       {/* Sidebar */}
-      <div className={`sidebar ${sidebarOpen ? 'sidebar-open' : ''}`}>
+      <aside className={`sidebar ${sidebarOpen ? 'sidebar-open' : ''}`}>
         {/* Sticky sidebar header (desktop) */}
         <div className="sidebar-header">
           <div className="sidebar-brand">
@@ -192,10 +193,10 @@ function App() {
             onError={(msg) => showToast(msg, 'error')}
           />
         </div>
-      </div>
+      </aside>
 
       {/* Main canvas area */}
-      <div className="main">
+      <main className="main">
         <div className="canvas-wrapper">
           <div className="canvas-container">
             {words.length === 0 && !generating && (
@@ -249,7 +250,7 @@ function App() {
 
           <ExportBar canvasRef={canvasRef} showToast={showToast} hasWords={words.length > 0} />
         </div>
-      </div>
+      </main>
 
       {/* Mobile FAB */}
       <button

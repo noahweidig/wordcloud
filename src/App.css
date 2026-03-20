@@ -1217,15 +1217,25 @@ input[type="color"]:focus-visible {
     border-radius: var(--radius-sm);
   }
 
+  .preset-row {
+    flex-wrap: wrap;
+  }
+
   /* Larger touch targets */
   .btn {
     padding: 11px 16px;
     font-size: 13px;
     min-height: 44px;
+    white-space: normal;
+    height: auto;
+    overflow: visible;
   }
 
   .btn-chip {
     min-height: 36px;
+    white-space: normal;
+    height: auto;
+    overflow: visible;
   }
 
   .section-title {
@@ -1237,6 +1247,9 @@ input[type="color"]:focus-visible {
     padding: 9px 12px;
     font-size: 12px;
     min-height: 40px;
+    white-space: normal;
+    height: auto;
+    overflow: visible;
   }
 
   select {
@@ -1304,7 +1317,7 @@ input[type="color"]:focus-visible {
   }
 
   .export-bar .btn-small {
-    flex: 1;
+    flex: 1 1 100%;
     min-width: 0;
     justify-content: center;
   }

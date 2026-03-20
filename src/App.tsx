@@ -208,10 +208,10 @@ function App() {
                     <path d="M13 26l3-4 3 4M16 22v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
-                <h2>WordCloud Studio</h2>
+                <h2>Discover patterns in your text</h2>
                 <p>
-                  Transform your text into beautiful visualizations.<br />
-                  Paste your text, customize the design, and export your word cloud.
+                  Instantly visualize the most common words and themes in any content.<br />
+                  Paste your text to generate a customizable word cloud.
                 </p>
                 <div className="empty-state-actions">
                   {settings.text.trim() ? (

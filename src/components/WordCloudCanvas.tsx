@@ -44,15 +44,18 @@ const WordCloudCanvas = forwardRef<CanvasHandle, Props>(({ words, settings }, re
     const centerY = h / 2;
 
     ctx.globalAlpha = wordAlpha;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
 
+    // ⚡ Bolt Optimization:
+    // Moved constant state assignments (textAlign, textBaseline) outside the render loop
+    // to avoid redundant C++ boundry crossings on the Canvas API up to 1000x per render.
     for (const word of words) {
       ctx.save();
       ctx.translate(centerX + word.x, centerY + word.y);
       ctx.rotate((word.rotate * Math.PI) / 180);
       ctx.font = `${word.weight} ${word.size}px ${word.font}`;
       ctx.fillStyle = word.color;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
       ctx.fillText(word.text, 0, 0);
       ctx.restore();
     }
@@ -80,14 +83,17 @@ const WordCloudCanvas = forwardRef<CanvasHandle, Props>(({ words, settings }, re
         const centerY = settings.canvasHeight / 2;
 
         ctx.globalAlpha = settings.wordAlpha;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        // ⚡ Bolt Optimization:
+        // Moved constant state assignments outside the render loop.
         for (const word of words) {
           ctx.save();
           ctx.translate(centerX + word.x, centerY + word.y);
           ctx.rotate((word.rotate * Math.PI) / 180);
           ctx.font = `${word.weight} ${word.size}px ${word.font}`;
           ctx.fillStyle = word.color;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
           ctx.fillText(word.text, 0, 0);
           ctx.restore();
         }

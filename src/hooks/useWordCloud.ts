@@ -140,28 +140,23 @@ export function useWordCloud() {
         }
       }
 
-      // Build word list with sizes
+      // ⚡ Bolt Optimization:
+      // Build word list with sizes directly into d3-cloud's expected format.
+      // Removed intermediate array allocation (wordData) and chained .map() call,
+      // mapping `rotation` -> `rotate` in one pass.
       const wordData = filtered.map((w, i) => ({
         text: w.text,
         size: scaleSize(w.count, maxCount, settings.minFontSize, settings.maxFontSize, settings.scaleMode),
         color: getColor(i, w.count),
         count: w.count,
-        rotation: getRotation(),
+        rotate: getRotation(),
       }));
 
       // Run d3-cloud layout
       const placed = await new Promise<PlacedWord[]>((resolve) => {
         const layout = cloud()
           .size([settings.canvasWidth, settings.canvasHeight])
-          .words(
-            wordData.map((d) => ({
-              text: d.text,
-              size: d.size,
-              color: d.color,
-              count: d.count,
-              rotate: d.rotation,
-            }))
-          )
+          .words(wordData)
           .padding(settings.padding)
           .rotate((d: D3Word) => d.rotate ?? 0)
           .font(settings.fontFamily)

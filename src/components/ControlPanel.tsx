@@ -236,8 +236,17 @@ export default function ControlPanel({
             </button>
             <button
               className="btn btn-small"
-              onClick={() => onChange({ text: '' })}
+              onClick={() => {
+                if (settings.text.length > 200) {
+                  if (window.confirm('Are you sure you want to clear this text?')) {
+                    onChange({ text: '' });
+                  }
+                } else {
+                  onChange({ text: '' });
+                }
+              }}
               disabled={!settings.text}
+              title={!settings.text ? "Text input is already empty" : "Clear text"}
             >
               Clear
             </button>

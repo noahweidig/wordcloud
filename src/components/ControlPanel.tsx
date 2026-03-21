@@ -228,7 +228,7 @@ export default function ControlPanel({
         <div className="char-count">{settings.text.length.toLocaleString()} / 100,000</div>
         <div className="control-row">
           <div className="button-row">
-            <button className="btn btn-small" onClick={() => fileInputRef.current?.click()}>
+            <button className="btn btn-small btn-highlight" onClick={() => fileInputRef.current?.click()} aria-label="Upload text file">
               <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5.5 1v6M2.5 4l3-3 3 3M1 9h9"/>
               </svg>

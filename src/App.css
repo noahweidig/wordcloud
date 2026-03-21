@@ -769,6 +769,11 @@ input[type="color"]:focus-visible {
 }
 
 /* Focus highlight button */
+.btn-highlight {
+  box-shadow: 0 0 0 2px var(--primary-subtle);
+  border-color: var(--primary);
+}
+
 .btn-focus {
   border-color: var(--primary) !important;
   color: var(--primary) !important;

@@ -25,3 +25,7 @@
 ## 2024-06-25 - Character Counts on Limited Inputs
 **Learning:** When text inputs have a maximum length (e.g., to prevent DoS or memory issues), silently enforcing the limit causes frustration when users don't know why their input was truncated.
 **Action:** Always provide a visual character count indicator near constrained text inputs to clearly set expectations.
+
+## 2024-07-16 - Safe Destructive Actions
+**Learning:** Destructive actions like "Clear", when placed near common actions like "Upload", can lead to accidental data loss. This is especially frustrating if a user has pasted or typed a large amount of text.
+**Action:** Add friction to destructive actions proportional to the potential loss. For example, add a confirmation dialogue to clear buttons if the text exceeds a certain length threshold (like 200 characters). This balances quick actions for small inputs with safety for large ones.

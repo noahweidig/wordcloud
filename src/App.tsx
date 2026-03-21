@@ -210,8 +210,8 @@ function App() {
                 </div>
                 <h2>Discover patterns in your text</h2>
                 <p>
-                  Instantly visualize the most common words and themes in any content.<br />
-                  Paste your text to generate a customizable word cloud.
+                  Visualize common words and themes.<br />
+                  Paste text to generate a word cloud.
                 </p>
                 <div className="empty-state-actions">
                   {settings.text.trim() ? (

@@ -195,7 +195,7 @@ export default function ControlPanel({
           </button>
         </div>
         <div className="preset-row">
-          <span style={{ fontSize: '10px', fontWeight: 600, color: 'var(--text-dim)', alignSelf: 'center', textTransform: 'uppercase', letterSpacing: '0.5px', marginRight: '2px' }}>Presets:</span>
+          <span style={{ fontSize: '10px', fontWeight: 600, color: 'var(--text-muted)', alignSelf: 'center', textTransform: 'uppercase', letterSpacing: '0.5px', marginRight: '2px' }}>Presets:</span>
           <button className="btn btn-chip" onClick={() => applyPreset('minimal')}>Minimal</button>
           <button className="btn btn-chip" onClick={() => applyPreset('vibrant')}>Vibrant</button>
           <button className="btn btn-chip" onClick={() => applyPreset('poster')}>Poster</button>

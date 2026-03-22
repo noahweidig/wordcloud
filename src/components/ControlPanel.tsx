@@ -395,17 +395,24 @@ export default function ControlPanel({
         </div>
         <div className="control-row inline">
           <label className="control-label">W:</label>
+          {/* Prevent resource exhaustion DoS by hard-capping dimensions */}
           <input
             type="number" min={200} max={4000} step={50}
             value={settings.canvasWidth}
-            onChange={(e) => onChange({ canvasWidth: +e.target.value })}
+            onChange={(e) => onChange({ canvasWidth: Math.min(4000, +e.target.value) })}
+            onBlur={(e) => {
+              if (+e.target.value < 200) onChange({ canvasWidth: 200 });
+            }}
             className="num-input"
           />
           <label className="control-label">H:</label>
           <input
             type="number" min={200} max={4000} step={50}
             value={settings.canvasHeight}
-            onChange={(e) => onChange({ canvasHeight: +e.target.value })}
+            onChange={(e) => onChange({ canvasHeight: Math.min(4000, +e.target.value) })}
+            onBlur={(e) => {
+              if (+e.target.value < 200) onChange({ canvasHeight: 200 });
+            }}
             className="num-input"
           />
         </div>

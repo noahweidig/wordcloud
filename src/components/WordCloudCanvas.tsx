@@ -48,17 +48,41 @@ const WordCloudCanvas = forwardRef<CanvasHandle, Props>(({ words, settings }, re
     ctx.textBaseline = 'middle';
 
     // ⚡ Bolt Optimization:
-    // Moved constant state assignments (textAlign, textBaseline) outside the render loop
-    // to avoid redundant C++ boundry crossings on the Canvas API up to 1000x per render.
+    // 1. Replaced save/restore with manual translation/rotation reversal to preserve existing
+    //    transformation matrix (e.g. for high-DPI scaling) and reduce overall canvas API calls.
+    // 2. Cached font and fillStyle to avoid redundant state assignments which cross
+    //    the JS-to-C++ boundary in the browser, providing a significant speedup for large clouds.
+    let lastFont = '';
+    let lastColor = '';
+
+    // Save state once before the loop to restore it afterwards
+    ctx.save();
     for (const word of words) {
-      ctx.save();
-      ctx.translate(centerX + word.x, centerY + word.y);
-      ctx.rotate((word.rotate * Math.PI) / 180);
-      ctx.font = `${word.weight} ${word.size}px ${word.font}`;
-      ctx.fillStyle = word.color;
+      const x = centerX + word.x;
+      const y = centerY + word.y;
+      const rot = (word.rotate * Math.PI) / 180;
+
+      ctx.translate(x, y);
+      if (rot) ctx.rotate(rot);
+
+      const font = `${word.weight} ${word.size}px ${word.font}`;
+      if (font !== lastFont) {
+        ctx.font = font;
+        lastFont = font;
+      }
+      if (word.color !== lastColor) {
+        ctx.fillStyle = word.color;
+        lastColor = word.color;
+      }
+
       ctx.fillText(word.text, 0, 0);
-      ctx.restore();
+
+      // Reverse transform
+      if (rot) ctx.rotate(-rot);
+      ctx.translate(-x, -y);
     }
+    // Restore state (font, fillStyle, etc.) after the loop
+    ctx.restore();
 
     ctx.globalAlpha = 1;
 
@@ -87,16 +111,36 @@ const WordCloudCanvas = forwardRef<CanvasHandle, Props>(({ words, settings }, re
         ctx.textBaseline = 'middle';
 
         // ⚡ Bolt Optimization:
-        // Moved constant state assignments outside the render loop.
+        // 1. Replaced save/restore with manual translation/rotation reversal.
+        // 2. Cached font and fillStyle to minimize redundant state updates.
+        let lastFont = '';
+        let lastColor = '';
+
+        ctx.save();
         for (const word of words) {
-          ctx.save();
-          ctx.translate(centerX + word.x, centerY + word.y);
-          ctx.rotate((word.rotate * Math.PI) / 180);
-          ctx.font = `${word.weight} ${word.size}px ${word.font}`;
-          ctx.fillStyle = word.color;
+          const x = centerX + word.x;
+          const y = centerY + word.y;
+          const rot = (word.rotate * Math.PI) / 180;
+
+          ctx.translate(x, y);
+          if (rot) ctx.rotate(rot);
+
+          const font = `${word.weight} ${word.size}px ${word.font}`;
+          if (font !== lastFont) {
+            ctx.font = font;
+            lastFont = font;
+          }
+          if (word.color !== lastColor) {
+            ctx.fillStyle = word.color;
+            lastColor = word.color;
+          }
+
           ctx.fillText(word.text, 0, 0);
-          ctx.restore();
+
+          if (rot) ctx.rotate(-rot);
+          ctx.translate(-x, -y);
         }
+        ctx.restore();
         ctx.globalAlpha = 1;
 
         if (settings.maskShape !== 'none') {

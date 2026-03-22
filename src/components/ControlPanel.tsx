@@ -187,7 +187,7 @@ export default function ControlPanel({
               </>
             )}
           </button>
-          <button className="btn btn-secondary" onClick={onRandomize} title="Randomize settings and generate">
+          <button className="btn btn-secondary btn-accent-ring" onClick={onRandomize} title="Randomize settings and generate">
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
               <path d="M9 1h3v3M1 9l3 3h-3M12 1L7.5 5.5M1 1l4.5 4.5M9 12h3v-3"/>
             </svg>

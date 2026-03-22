@@ -211,7 +211,7 @@ function App() {
                 <h2>Discover patterns in your text</h2>
                 <p>
                   Visualize common words and themes.<br />
-                  Paste text to generate a word cloud.
+                  {settings.text.trim() ? 'Click below to generate your word cloud.' : 'Add your text to get started.'}
                 </p>
                 <div className="empty-state-actions">
                   {settings.text.trim() ? (
@@ -220,7 +220,7 @@ function App() {
                       onClick={handleGenerate}
                       aria-label="Generate Word Cloud"
                     >
-                      Generate
+                      Generate Word Cloud
                     </button>
                   ) : (
                     <button
@@ -233,7 +233,7 @@ function App() {
                       }}
                       aria-label="Open settings to add text"
                     >
-                      Generate
+                      Add Text to Begin
                     </button>
                   )}
                 </div>

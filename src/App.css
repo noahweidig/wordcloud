@@ -1250,6 +1250,10 @@ input[type="color"]:focus-visible {
     flex-wrap: wrap;
   }
 
+  .button-row {
+    flex-wrap: wrap;
+  }
+
   /* Larger touch targets */
   .btn {
     padding: 11px 16px;

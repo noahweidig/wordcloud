@@ -211,7 +211,7 @@ function App() {
                 <h2>Discover patterns in your text</h2>
                 <p>
                   Visualize common words and themes.<br />
-                  {settings.text.trim() ? 'Click below to generate your word cloud.' : 'Add your text to get started.'}
+                  {settings.text.trim() ? 'Generate your word cloud.' : 'Add text to get started.'}
                 </p>
                 <div className="empty-state-actions">
                   {settings.text.trim() ? (

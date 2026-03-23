@@ -137,22 +137,6 @@ export default function ControlPanel({
   return (
     <div className="control-panel">
 
-      {/* Stats */}
-      <div className="stats-bar" aria-live="polite">
-        <div className="stat-chip">
-          <span className="stat-value">{stats.totalWords}</span>
-          <span className="stat-label">Total</span>
-        </div>
-        <div className="stat-chip">
-          <span className="stat-value">{stats.uniqueWords}</span>
-          <span className="stat-label">Unique</span>
-        </div>
-        <div className="stat-chip">
-          <span className="stat-value">{stats.wordsUsed}</span>
-          <span className="stat-label">Used</span>
-        </div>
-      </div>
-
       {/* Quick Actions */}
       <div className="quick-actions">
         <div className="action-row">
@@ -305,6 +289,24 @@ export default function ControlPanel({
           <div className="char-count">{settings.customStopwords.length} / 2,000</div>
         </div>
       </details>
+
+      {/* Stats */}
+      {stats.totalWords > 0 && (
+        <div className="stats-bar" aria-live="polite">
+          <div className="stat-chip">
+            <span className="stat-value">{stats.totalWords}</span>
+            <span className="stat-label">Total</span>
+          </div>
+          <div className="stat-chip">
+            <span className="stat-value">{stats.uniqueWords}</span>
+            <span className="stat-label">Unique</span>
+          </div>
+          <div className="stat-chip">
+            <span className="stat-value">{stats.wordsUsed}</span>
+            <span className="stat-label">Used</span>
+          </div>
+        </div>
+      )}
 
       {/* Word Weighting */}
       <details className="section">

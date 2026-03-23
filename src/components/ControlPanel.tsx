@@ -238,7 +238,7 @@ export default function ControlPanel({
               className="btn btn-small"
               onClick={() => {
                 if (settings.text.length > 200) {
-                  if (window.confirm('Are you sure you want to clear this text?')) {
+                  if (window.confirm('Clear all text?')) {
                     onChange({ text: '' });
                   }
                 } else {

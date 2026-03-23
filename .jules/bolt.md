@@ -19,3 +19,7 @@
 ## 2024-05-19 - Fast token frequency map conversion
 **Learning:** In V8/Node JS, converting a large Map into an Array of objects using \`Array.from(freq.entries()).map()\` creates significant overhead due to creating an intermediate array of tuples and re-allocating memory.
 **Action:** When counting frequencies from large token arrays, iterating through \`map.entries()\` and inserting directly into a pre-allocated array (sized to \`map.size\`) yields ~30-40% faster execution and reduces garbage collection pauses.
+
+## 2024-05-18 - React Configuration Object Re-renders
+**Learning:** Passing a large, frequently updated state object (like `settings` where a single field like `text` updates on every keystroke) to pure or complex child components forces deep, expensive re-renders even if the child only cares about unchanged fields.
+**Action:** When child components rely on a subset of a large configuration object, use `React.memo` with a custom equality function that explicitly compares only the properties the component actually uses, rather than relying on default shallow comparison of the parent object.

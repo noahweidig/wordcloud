@@ -1,4 +1,4 @@
-import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
+import { useEffect, useRef, forwardRef, useImperativeHandle, memo } from 'react';
 import type { PlacedWord } from '../hooks/useWordCloud';
 import type { CloudSettings, MaskShape } from '../types';
 import { drawBuiltInMask, loadCustomMask } from '../utils/masks';
@@ -224,4 +224,24 @@ async function applyMaskClip(canvas: HTMLCanvasElement, maskShape: MaskShape, cu
 }
 
 WordCloudCanvas.displayName = 'WordCloudCanvas';
-export default WordCloudCanvas;
+
+export default memo(WordCloudCanvas, (prevProps, nextProps) => {
+  // ⚡ Bolt Optimization:
+  // Only re-render if words change or if specific visual settings change.
+  // This prevents the expensive canvas component from re-rendering on every keystroke
+  // when typing in the text area (which updates the `settings` object).
+  if (prevProps.words !== nextProps.words) return false;
+
+  const p = prevProps.settings;
+  const n = nextProps.settings;
+
+  return (
+    p.canvasWidth === n.canvasWidth &&
+    p.canvasHeight === n.canvasHeight &&
+    p.bgAlpha === n.bgAlpha &&
+    p.bgColor === n.bgColor &&
+    p.wordAlpha === n.wordAlpha &&
+    p.maskShape === n.maskShape &&
+    p.customMaskUrl === n.customMaskUrl
+  );
+});

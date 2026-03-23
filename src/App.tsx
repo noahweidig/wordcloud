@@ -218,9 +218,9 @@ function App() {
                     <button
                       className="btn btn-primary"
                       onClick={handleGenerate}
-                      aria-label="Generate Word Cloud"
+                      aria-label="Generate"
                     >
-                      Generate Word Cloud
+                      Generate
                     </button>
                   ) : (
                     <button

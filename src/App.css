@@ -66,7 +66,7 @@
   --border-subtle: #131729;
 
   --text: #edf0fb;
-  --text-muted: #6d7898;
+  --text-muted: #727d9f;
   --text-dim: #3c4460;
 
   --primary-faint: rgba(124, 58, 237, 0.09);
@@ -589,7 +589,7 @@ input[type="color"]:focus-visible {
 /* ===== Character counter ===== */
 .char-count {
   font-size: 10.5px;
-  color: var(--text-dim);
+  color: var(--text-muted);
   text-align: right;
   margin-top: 3px;
   font-variant-numeric: tabular-nums;

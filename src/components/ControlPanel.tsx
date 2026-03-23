@@ -394,9 +394,11 @@ export default function ControlPanel({
           </select>
         </div>
         <div className="control-row inline">
-          <label className="control-label">W:</label>
+          <label htmlFor="canvas-width-input" className="control-label">W:</label>
           {/* Prevent resource exhaustion DoS by hard-capping dimensions */}
           <input
+            id="canvas-width-input"
+            aria-label="Canvas Width"
             type="number" min={200} max={4000} step={50}
             value={settings.canvasWidth}
             onChange={(e) => onChange({ canvasWidth: Math.min(4000, +e.target.value) })}
@@ -405,8 +407,10 @@ export default function ControlPanel({
             }}
             className="num-input"
           />
-          <label className="control-label">H:</label>
+          <label htmlFor="canvas-height-input" className="control-label">H:</label>
           <input
+            id="canvas-height-input"
+            aria-label="Canvas Height"
             type="number" min={200} max={4000} step={50}
             value={settings.canvasHeight}
             onChange={(e) => onChange({ canvasHeight: Math.min(4000, +e.target.value) })}
@@ -417,8 +421,9 @@ export default function ControlPanel({
           />
         </div>
         <div className="control-row inline">
-          <label className="control-label" style={{ marginBottom: 0 }}>Background</label>
+          <label htmlFor="bg-color-input" className="control-label" style={{ marginBottom: 0 }}>Background</label>
           <input
+            id="bg-color-input"
             type="color"
             value={settings.bgColor}
             onChange={(e) => onChange({ bgColor: e.target.value })}
@@ -547,8 +552,9 @@ export default function ControlPanel({
         </div>
         {settings.colorMode === 'single' && (
           <div className="control-row inline">
-            <label className="control-label" style={{ marginBottom: 0 }}>Color</label>
+            <label htmlFor="single-color-input" className="control-label" style={{ marginBottom: 0 }}>Color</label>
             <input
+              id="single-color-input"
               type="color"
               value={settings.singleColor}
               onChange={(e) => onChange({ singleColor: e.target.value })}

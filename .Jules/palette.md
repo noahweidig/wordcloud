@@ -29,3 +29,7 @@
 ## 2024-07-16 - Safe Destructive Actions
 **Learning:** Destructive actions like "Clear", when placed near common actions like "Upload", can lead to accidental data loss. This is especially frustrating if a user has pasted or typed a large amount of text.
 **Action:** Add friction to destructive actions proportional to the potential loss. For example, add a confirmation dialogue to clear buttons if the text exceeds a certain length threshold (like 200 characters). This balances quick actions for small inputs with safety for large ones.
+
+## 2024-11-20 - Abbreviated Labels and Hit Areas
+**Learning:** Abbreviated inline labels (like "W:" and "H:") conserve space visually but degrade accessibility in two ways: they reduce the clickable hit area for mouse users, and they provide confusing, unhelpful context for screen readers when linked to inputs.
+**Action:** Always link visual labels to their form inputs using `htmlFor` and `id` to expand the clickable hit area. For abbreviated visual labels, add an explicit, fully expanded `aria-label` (e.g., "Canvas Width") directly to the input to ensure screen readers provide clear context.

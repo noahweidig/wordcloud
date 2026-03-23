@@ -716,6 +716,29 @@ input[type="color"]:focus-visible {
   100% { box-shadow: var(--shadow-primary); }
 }
 
+/* Subtle Accent Ring for important secondary actions */
+.btn-accent-ring {
+  overflow: visible !important;
+  position: relative;
+}
+
+.btn-accent-ring::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: calc(var(--radius-sm) + 2px);
+  border: 2px solid var(--secondary);
+  opacity: 0.5;
+  animation: subtle-ring-pulse 2.5s infinite cubic-bezier(0.66, 0, 0, 1);
+  pointer-events: none;
+}
+
+@keyframes subtle-ring-pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  70% { transform: scale(1.05); opacity: 0; }
+  100% { transform: scale(0.95); opacity: 0; }
+}
+
 /* Secondary button */
 .btn-secondary {
   flex: 1;

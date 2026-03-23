@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import type { CanvasHandle } from './WordCloudCanvas';
 
 interface Props {
@@ -23,7 +24,7 @@ function CopyIcon() {
   );
 }
 
-export default function ExportBar({ canvasRef, showToast, hasWords }: Props) {
+function ExportBar({ canvasRef, showToast, hasWords }: Props) {
   const downloadPNG = async (transparent: boolean) => {
     const blob = await canvasRef.current?.exportPNG(transparent);
     if (!blob) {
@@ -88,3 +89,5 @@ export default function ExportBar({ canvasRef, showToast, hasWords }: Props) {
     </div>
   );
 }
+
+export default memo(ExportBar);

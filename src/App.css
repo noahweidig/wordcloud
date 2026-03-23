@@ -1412,3 +1412,14 @@ input[type="color"]:focus-visible {
     flex-wrap: wrap;
   }
 }
+@media (max-width: 768px) {
+  .button-row {
+    flex-wrap: wrap;
+  }
+  .button-row .btn,
+  .button-row .btn-small {
+    flex: 1;
+    justify-content: center;
+    width: 100%;
+  }
+}

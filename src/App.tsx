@@ -257,12 +257,14 @@ function App() {
         className={`mobile-menu-toggle ${sidebarOpen ? 'is-open' : ''}`}
         onClick={() => setSidebarOpen(!sidebarOpen)}
         aria-label={sidebarOpen ? 'Close settings' : 'Open settings'}
+        style={{ overflow: 'visible' }}
       >
         <div className="menu-icon">
           <span />
           <span />
           <span />
         </div>
+        {!sidebarOpen && <span className="notification-badge" aria-hidden="true" />}
       </button>
 
       {/* Toast */}

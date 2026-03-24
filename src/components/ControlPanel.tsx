@@ -230,7 +230,7 @@ export default function ControlPanel({
                 }
               }}
               disabled={!settings.text}
-              title={!settings.text ? "Text input is already empty" : "Clear text"}
+              title="Clear text"
             >
               Clear
             </button>

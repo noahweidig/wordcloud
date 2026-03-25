@@ -216,7 +216,7 @@ function App() {
                 <h2>Create beautiful word clouds</h2>
                 <p>
                   Visualize common words and themes in your text.<br />
-                  {settings.text.trim() ? 'Click Generate to build your word cloud.' : 'Add text to get started.'}
+                  {settings.text.trim() ? 'Generate your word cloud.' : 'Add text to get started.'}
                 </p>
                 <div className="empty-state-actions">
                   {settings.text.trim() ? (

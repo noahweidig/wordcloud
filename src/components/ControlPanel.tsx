@@ -623,16 +623,18 @@ export default function ControlPanel({
         </div>
         {settings.maskShape === 'custom' && (
           <div className="control-row">
-            <button
-              className={settings.customMaskUrl ? 'btn btn-small' : 'btn btn-small btn-focus btn-accent-ring'}
-              onClick={() => maskFileRef.current?.click()}
-              aria-label="Upload custom PNG mask"
-            >
-              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5.5 1v6M2.5 4l3-3 3 3M1 9h9"/>
-              </svg>
-              {settings.customMaskUrl ? 'Change PNG' : 'Upload PNG'}
-            </button>
+            <div className="button-row">
+              <button
+                className={settings.customMaskUrl ? 'btn btn-small' : 'btn btn-small btn-focus btn-accent-ring'}
+                onClick={() => maskFileRef.current?.click()}
+                aria-label="Upload custom PNG mask"
+              >
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5.5 1v6M2.5 4l3-3 3 3M1 9h9"/>
+                </svg>
+                {settings.customMaskUrl ? 'Change PNG' : 'Upload PNG'}
+              </button>
+            </div>
             <input
               ref={maskFileRef}
               type="file"

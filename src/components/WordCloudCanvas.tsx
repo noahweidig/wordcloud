@@ -30,6 +30,11 @@ const WordCloudCanvas = forwardRef<CanvasHandle, Props>(({ words, settings }, re
     canvas.width = w;
     canvas.height = h;
 
+    if (words.length === 0) {
+      ctx.clearRect(0, 0, w, h);
+      return;
+    }
+
     // Background
     if (bgAlpha > 0) {
       ctx.globalAlpha = bgAlpha;

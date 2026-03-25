@@ -23,3 +23,7 @@
 ## 2024-05-18 - React Configuration Object Re-renders
 **Learning:** Passing a large, frequently updated state object (like `settings` where a single field like `text` updates on every keystroke) to pure or complex child components forces deep, expensive re-renders even if the child only cares about unchanged fields.
 **Action:** When child components rely on a subset of a large configuration object, use `React.memo` with a custom equality function that explicitly compares only the properties the component actually uses, rather than relying on default shallow comparison of the parent object.
+
+## 2024-05-19 - [React.memo and Inline Callbacks]
+**Learning:** Even if a component is relatively pure, passing an inline arrow function (like `onError={(msg) => ...}`) from a parent component that re-renders frequently (e.g. `App` handling toasts or sidebar state) will force deep re-renders of the child.
+**Action:** Always wrap large form components like `ControlPanel` in `React.memo` and ensure all callback props are stabilized with `useCallback` to prevent cascading re-renders when orthogonal parent state changes.

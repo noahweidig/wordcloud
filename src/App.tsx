@@ -92,6 +92,11 @@ function App() {
     setSidebarOpen(false);
   }, [generate, settings]);
 
+  // ⚡ Bolt Optimization:
+  // Stabilized the onError callback to prevent ControlPanel's React.memo from breaking
+  // when App re-renders (e.g. on sidebar toggles or when the words array updates).
+  const handleError = useCallback((msg: string) => showToast(msg, 'error'), [showToast]);
+
   const handleRandomize = useCallback(() => {
     const randomPalette = Math.floor(Math.random() * PALETTES.length);
     const randomFont = FONT_FAMILIES[Math.floor(Math.random() * FONT_FAMILIES.length)];
@@ -190,7 +195,7 @@ function App() {
             onRandomize={handleRandomize}
             generating={generating}
             stats={stats}
-            onError={(msg) => showToast(msg, 'error')}
+            onError={handleError}
           />
         </div>
       </aside>

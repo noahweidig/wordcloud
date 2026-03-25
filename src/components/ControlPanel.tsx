@@ -143,7 +143,7 @@ export default memo(function ControlPanel({
 
       {/* Quick Actions */}
       <div className="quick-actions">
-        <div className="action-row">
+        <div className="button-row">
           <button
             className="btn btn-primary"
             onClick={onGenerate}

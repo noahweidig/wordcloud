@@ -216,7 +216,7 @@ export default function ControlPanel({
               <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5.5 1v6M2.5 4l3-3 3 3M1 9h9"/>
               </svg>
-              Upload TXT
+              Upload .txt
             </button>
             <button
               className="btn btn-small"
@@ -632,7 +632,7 @@ export default function ControlPanel({
                 <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5.5 1v6M2.5 4l3-3 3 3M1 9h9"/>
                 </svg>
-                {settings.customMaskUrl ? 'Change PNG' : 'Upload PNG'}
+                {settings.customMaskUrl ? 'Change .png' : 'Upload .png'}
               </button>
             </div>
             <input

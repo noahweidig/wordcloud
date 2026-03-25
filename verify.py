@@ -1,28 +1,56 @@
-import time
 from playwright.sync_api import sync_playwright
 
-def run():
+def verify():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        # Mobile viewport
-        context = browser.new_context(viewport={'width': 375, 'height': 667})
+        context = browser.new_context(record_video_dir="videos")
         page = context.new_page()
+
+        # Disable transitions
+        page.add_init_script("""
+            const style = document.createElement('style');
+            style.textContent = `* { transition: none !important; animation-duration: 0s !important; }`;
+            document.head.appendChild(style);
+        """)
+
+        # Go to app
         page.goto("http://localhost:3000/wordcloud/")
-        time.sleep(2)
 
-        # Take a screenshot of the main screen (empty state)
-        page.screenshot(path="mobile_main_375.png")
+        # Wait for app to load
+        page.wait_for_selector(".app")
 
-        # Open sidebar
+        # Set some text to enable buttons
+        page.fill("#source-text-input", "test test test test")
+
+        # Open Quick Actions section
+        # Ensure it's open
+        page.evaluate("document.querySelectorAll('details').forEach(d => d.open = true);")
+
+        # Take screenshot of the utility buttons in control panel (desktop)
+        page.locator(".quick-actions").screenshot(path="final_768px.png")
+
+        # Focus on the control panel to see clear button
+        page.locator(".control-panel").screenshot(path="control_panel.png")
+
+        # Set mobile viewport and take screenshot
+        page.set_viewport_size({"width": 375, "height": 667})
+        page.goto("http://localhost:3000/wordcloud/")
+        page.wait_for_selector(".app")
+
+        # open sidebar on mobile
         page.click(".mobile-menu-toggle")
-        time.sleep(1)
-        page.screenshot(path="mobile_sidebar_375.png")
+        page.wait_for_selector(".sidebar.sidebar-open")
 
-        # Scroll to upload buttons in sidebar
-        page.evaluate("document.querySelector('.sidebar-body').scrollTop = 100;")
-        time.sleep(1)
-        page.screenshot(path="mobile_sidebar_scrolled_375.png")
+        page.fill("#source-text-input", "test test test test")
+        page.evaluate("document.querySelectorAll('details').forEach(d => d.open = true);")
 
+        page.locator(".quick-actions").screenshot(path="final_375px.png")
+
+        # take screenshot of the clear button
+        page.locator(".control-panel").screenshot(path="mobile_control_panel.png")
+
+        context.close()
         browser.close()
 
-run()
+if __name__ == "__main__":
+    verify()

@@ -208,10 +208,10 @@ function App() {
                     <path d="M13 26l3-4 3 4M16 22v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
-                <h2>Create beautiful word clouds</h2>
+                <h2>Word Cloud Generator</h2>
                 <p>
-                  Visualize common words and themes in your text.<br />
-                  {settings.text.trim() ? 'Click Generate to build your word cloud.' : 'Add text to get started.'}
+                  Transform your text into a beautiful word cloud to quickly visualize key themes and trends.<br />
+                  {settings.text.trim() ? 'Click Generate below to build your first word cloud.' : 'Click below to add your text and get started.'}
                 </p>
                 <div className="empty-state-actions">
                   {settings.text.trim() ? (

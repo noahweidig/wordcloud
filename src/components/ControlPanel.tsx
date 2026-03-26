@@ -172,6 +172,9 @@ export default memo(function ControlPanel({
                   <path d="M1 9.5l2 2 2-2"/>
                 </svg>
                 Generate
+                <kbd className="shortcut-hint" aria-hidden="true">
+                  {typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.userAgent) ? '⌘ ↵' : 'Ctrl ↵'}
+                </kbd>
               </>
             )}
           </button>

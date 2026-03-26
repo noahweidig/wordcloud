@@ -1,56 +1,33 @@
-from playwright.sync_api import sync_playwright
+import asyncio
+from playwright.async_api import async_playwright
+import os
 
-def verify():
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        context = browser.new_context(record_video_dir="videos")
-        page = context.new_page()
+async def main():
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
 
-        # Disable transitions
-        page.add_init_script("""
-            const style = document.createElement('style');
-            style.textContent = `* { transition: none !important; animation-duration: 0s !important; }`;
-            document.head.appendChild(style);
-        """)
+        # Configure viewport for Mobile
+        context_mobile = await browser.new_context(viewport={'width': 375, 'height': 812})
+        page_mobile = await context_mobile.new_page()
 
-        # Go to app
-        page.goto("http://localhost:3000/wordcloud/")
+        await page_mobile.goto("http://localhost:3000/wordcloud/")
+        await page_mobile.add_style_tag(content="* { transition: none !important; animation-duration: 0s !important; }")
 
-        # Wait for app to load
-        page.wait_for_selector(".app")
+        # The main viewport will likely just show the WordCloud since there's sample text.
+        # We don't need to check "Add Text to Begin" if there is sample text.
 
-        # Set some text to enable buttons
-        page.fill("#source-text-input", "test test test test")
+        # Open the sidebar
+        await page_mobile.click("button.mobile-menu-toggle")
 
-        # Open Quick Actions section
-        # Ensure it's open
-        page.evaluate("document.querySelectorAll('details').forEach(d => d.open = true);")
+        # Wait for the sidebar Generate button
+        await page_mobile.wait_for_selector("aside.sidebar button:has-text('Generate')")
 
-        # Take screenshot of the utility buttons in control panel (desktop)
-        page.locator(".quick-actions").screenshot(path="final_768px.png")
+        # Take screenshot of the sidebar button on Mobile
+        button_locator_mobile = page_mobile.locator("aside.sidebar button").filter(has_text="Generate").first
+        await button_locator_mobile.screenshot(path="mobile_generate_button.png")
+        print("Captured mobile screenshot")
 
-        # Focus on the control panel to see clear button
-        page.locator(".control-panel").screenshot(path="control_panel.png")
-
-        # Set mobile viewport and take screenshot
-        page.set_viewport_size({"width": 375, "height": 667})
-        page.goto("http://localhost:3000/wordcloud/")
-        page.wait_for_selector(".app")
-
-        # open sidebar on mobile
-        page.click(".mobile-menu-toggle")
-        page.wait_for_selector(".sidebar.sidebar-open")
-
-        page.fill("#source-text-input", "test test test test")
-        page.evaluate("document.querySelectorAll('details').forEach(d => d.open = true);")
-
-        page.locator(".quick-actions").screenshot(path="final_375px.png")
-
-        # take screenshot of the clear button
-        page.locator(".control-panel").screenshot(path="mobile_control_panel.png")
-
-        context.close()
-        browser.close()
+        await browser.close()
 
 if __name__ == "__main__":
-    verify()
+    asyncio.run(main())

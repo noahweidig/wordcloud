@@ -37,7 +37,7 @@ function ExportBar({ canvasRef, showToast, hasWords }: Props) {
     a.download = `wordcloud${transparent ? '-transparent' : ''}.png`;
     a.click();
     URL.revokeObjectURL(url);
-    showToast('PNG downloaded!', 'success');
+    showToast('PNG exported!', 'success');
   };
 
   const copyToClipboard = async () => {
@@ -45,7 +45,7 @@ function ExportBar({ canvasRef, showToast, hasWords }: Props) {
     if (ok) {
       showToast('Copied to clipboard!', 'success');
     } else {
-      showToast('Failed to copy. Try downloading instead.', 'error');
+      showToast('Failed to copy. Try exporting instead.', 'error');
     }
   };
 
@@ -59,8 +59,8 @@ function ExportBar({ canvasRef, showToast, hasWords }: Props) {
         className={`btn btn-small ${hasWords ? 'export-primary has-badge' : ''}`}
         onClick={() => downloadPNG(false)}
         disabled={!hasWords}
-        title={disabledTitle ?? 'Download PNG with background'}
-        aria-label={hasWords ? 'Download PNG – ready to export' : 'Download PNG'}
+        title={disabledTitle ?? 'Export PNG with background'}
+        aria-label={hasWords ? 'Export PNG – ready' : 'Export PNG'}
       >
         <DownloadIcon />
         PNG
@@ -71,7 +71,7 @@ function ExportBar({ canvasRef, showToast, hasWords }: Props) {
         className="btn btn-small"
         onClick={() => downloadPNG(true)}
         disabled={!hasWords}
-        title={disabledTitle ?? 'Download PNG with transparent background'}
+        title={disabledTitle ?? 'Export PNG with transparent background'}
       >
         <DownloadIcon />
         Transparent

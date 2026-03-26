@@ -218,7 +218,7 @@ function App() {
                   Visualize common words and themes in your text.<br />
                   {settings.text.trim() ? 'Generate your word cloud.' : 'Add text to get started.'}
                 </p>
-                <div className="empty-state-actions">
+                <div className="empty-state-actions button-row">
                   {settings.text.trim() ? (
                     <button
                       className="btn btn-primary"

@@ -218,7 +218,7 @@ function App() {
                   Create beautiful, customizable word clouds in seconds.<br />
                   {settings.text.trim() ? 'Click Generate to see your word cloud.' : 'Add some text to get started.'}
                 </p>
-                <div className="empty-state-actions">
+                <div className="empty-state-actions button-row">
                   {settings.text.trim() ? (
                     <button
                       className="btn btn-primary"

@@ -27,3 +27,6 @@
 ## 2024-05-19 - [React.memo and Inline Callbacks]
 **Learning:** Even if a component is relatively pure, passing an inline arrow function (like `onError={(msg) => ...}`) from a parent component that re-renders frequently (e.g. `App` handling toasts or sidebar state) will force deep re-renders of the child.
 **Action:** Always wrap large form components like `ControlPanel` in `React.memo` and ensure all callback props are stabilized with `useCallback` to prevent cascading re-renders when orthogonal parent state changes.
+## 2025-03-22 - [Regex Execution for Heavy Tokenization]
+**Learning:** Using `String.prototype.match(/.../g)` on extremely large texts creates a massive intermediate array containing all matches simultaneously, causing significant garbage collection overhead and memory spikes.
+**Action:** When parsing large text bodies into tokens, use a `while ((match = regex.exec(text)) !== null)` loop. This processes tokens iteratively and pushes them directly to the final data structure, avoiding the huge intermediate allocation array.

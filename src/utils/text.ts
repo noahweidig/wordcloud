@@ -17,11 +17,11 @@ export interface WordFrequency {
  * Splits on whitespace and punctuation, optionally removes numbers.
  */
 export function tokenize(text: string, options: TokenOptions): string[] {
-  // Use match to avoid creating empty string elements and filter(Boolean)
-  // Replaces 6 sequential array iterations with a single loop
-  const matches = text.match(/[\w']+/g);
-  if (!matches) return [];
-
+  // ⚡ Bolt Optimization:
+  // Using exec avoids creating a massive array of all matches in memory at once
+  // via string.match(). This significantly reduces garbage collection overhead
+  // and memory usage for large texts. Lowercasing upfront simplifies later checks.
+  const regex = /[\w']+/g;
   const customSet = new Set(
     options.customStopwords.map((w: string) => w.trim().toLowerCase()).filter(Boolean)
   );
@@ -29,33 +29,34 @@ export function tokenize(text: string, options: TokenOptions): string[] {
   const result: string[] = [];
   const { lowercase, removeNumbers, removeStopwords } = options;
   const numRegex = /^\d+$/;
+  const hasCustom = customSet.size > 0;
 
-  for (let i = 0; i < matches.length; i++) {
-    let t = matches[i];
+  let match;
+  while ((match = regex.exec(text)) !== null) {
+    const t = match[0];
 
-    if (lowercase) {
-      t = t.toLowerCase();
-    }
+    // Lowercasing upfront simplifies later checks and reduces redundant operations
+    const lower = t.toLowerCase();
 
+    // Faster number check using regex test
     if (removeNumbers && numRegex.test(t)) {
-      continue;
+        continue;
     }
 
-    const lower = lowercase ? t : t.toLowerCase();
-
-    if (removeStopwords) {
-      if (STOPWORDS.has(lower) || customSet.has(lower)) {
+    if (removeStopwords && STOPWORDS.has(lower)) {
         continue;
-      }
-    } else if (customSet.has(lower)) {
-      continue;
+    }
+
+    if (hasCustom && customSet.has(lower)) {
+        continue;
     }
 
     if (t.length <= 1 && lower !== 'i') {
       continue;
     }
 
-    result.push(t);
+    // Push the appropriate case based on options
+    result.push(lowercase ? lower : t);
   }
 
   return result;

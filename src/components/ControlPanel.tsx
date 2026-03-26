@@ -204,7 +204,7 @@ export default memo(function ControlPanel({
           id="source-text-input"
           className={`text-input ${!settings.text.trim() ? 'text-input-attention' : ''}`}
           aria-label="Source text for word cloud"
-          placeholder="Paste or type your text here…"
+          placeholder="Paste or type text…"
           value={settings.text}
           maxLength={100000}
           onChange={(e) => onChange({ text: e.target.value })}

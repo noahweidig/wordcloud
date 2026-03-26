@@ -258,6 +258,11 @@ body {
 .preset-row {
   display: flex;
   gap: 5px;
+  padding: 6px;
+  background: var(--primary-faint);
+  border: 1px solid var(--primary-subtle);
+  border-radius: var(--radius-sm);
+  align-items: center;
 }
 
 /* ===== Sections ===== */

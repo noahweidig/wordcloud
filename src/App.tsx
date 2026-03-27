@@ -221,7 +221,7 @@ function App() {
                 <div className="empty-state-actions button-row">
                   {settings.text.trim() ? (
                     <button
-                      className="btn btn-primary"
+                      className="btn btn-primary btn-accent-ring"
                       onClick={handleGenerate}
                       aria-label="Generate"
                     >
@@ -229,7 +229,7 @@ function App() {
                     </button>
                   ) : (
                     <button
-                      className="btn btn-primary"
+                      className="btn btn-primary btn-accent-ring"
                       onClick={() => {
                         setSidebarOpen(true);
                         setTimeout(() => {

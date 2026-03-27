@@ -145,7 +145,7 @@ export default memo(function ControlPanel({
       <div className="quick-actions">
         <div className="button-row">
           <button
-            className="btn btn-primary"
+            className="btn btn-primary btn-accent-ring"
             onClick={onGenerate}
             disabled={generating || !settings.text.trim()}
             title={

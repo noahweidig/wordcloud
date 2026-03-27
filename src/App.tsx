@@ -213,7 +213,7 @@ function App() {
                     <path d="M13 26l3-4 3 4M16 22v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
-                <h2>Visualize your text</h2>
+                <h2>WordCloud Studio</h2>
                 <p>
                   Create beautiful, customizable word clouds in seconds.<br />
                   {settings.text.trim() ? 'Click Generate to see your word cloud.' : 'Add some text to get started.'}

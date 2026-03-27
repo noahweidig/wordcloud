@@ -238,7 +238,7 @@ function App() {
                       }}
                       aria-label="Open settings to add text"
                     >
-                      Add Text to Begin
+                      Add Text
                     </button>
                   )}
                 </div>

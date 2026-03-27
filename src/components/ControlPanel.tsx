@@ -326,11 +326,11 @@ export default memo(function ControlPanel({
           <span className="section-arrow" />
         </summary>
         <div className="control-row">
-          <label className="control-label">
+          <label htmlFor="input-min-frequency" className="control-label">
             <span className="control-label-text">Min frequency</span>
             <span className="control-value">{settings.minFrequency}</span>
           </label>
-          <input
+          <input id="input-min-frequency"
             type="range" min={1} max={20} step={1}
             value={settings.minFrequency}
             style={rangePct(settings.minFrequency, 1, 20)}
@@ -338,11 +338,11 @@ export default memo(function ControlPanel({
           />
         </div>
         <div className="control-row">
-          <label className="control-label">
+          <label htmlFor="input-max-words" className="control-label">
             <span className="control-label-text">Max words</span>
             <span className="control-value">{settings.maxWords}</span>
           </label>
-          <input
+          <input id="input-max-words"
             type="range" min={10} max={500} step={10}
             value={settings.maxWords}
             style={rangePct(settings.maxWords, 10, 500)}
@@ -350,10 +350,10 @@ export default memo(function ControlPanel({
           />
         </div>
         <div className="control-row">
-          <label className="control-label">
+          <label htmlFor="input-scale-mode" className="control-label">
             <span className="control-label-text">Scale mode</span>
           </label>
-          <select
+          <select id="input-scale-mode"
             value={settings.scaleMode}
             onChange={(e) => onChange({ scaleMode: e.target.value as ScaleMode })}
           >
@@ -363,11 +363,11 @@ export default memo(function ControlPanel({
           </select>
         </div>
         <div className="control-row">
-          <label className="control-label">
+          <label htmlFor="input-min-font-size" className="control-label">
             <span className="control-label-text">Min font size</span>
             <span className="control-value">{settings.minFontSize}px</span>
           </label>
-          <input
+          <input id="input-min-font-size"
             type="range" min={8} max={40} step={1}
             value={settings.minFontSize}
             style={rangePct(settings.minFontSize, 8, 40)}
@@ -375,11 +375,11 @@ export default memo(function ControlPanel({
           />
         </div>
         <div className="control-row">
-          <label className="control-label">
+          <label htmlFor="input-max-font-size" className="control-label">
             <span className="control-label-text">Max font size</span>
             <span className="control-value">{settings.maxFontSize}px</span>
           </label>
-          <input
+          <input id="input-max-font-size"
             type="range" min={30} max={200} step={5}
             value={settings.maxFontSize}
             style={rangePct(settings.maxFontSize, 30, 200)}
@@ -396,10 +396,10 @@ export default memo(function ControlPanel({
           <span className="section-arrow" />
         </summary>
         <div className="control-row">
-          <label className="control-label">
+          <label htmlFor="input-canvas-size" className="control-label">
             <span className="control-label-text">Canvas size</span>
           </label>
-          <select onChange={(e) => handleCanvasPreset(+e.target.value)}>
+          <select id="input-canvas-size" onChange={(e) => handleCanvasPreset(+e.target.value)}>
             {CANVAS_PRESETS.map((p, i) => (
               <option key={i} value={i}>{p.label}</option>
             ))}
@@ -442,11 +442,11 @@ export default memo(function ControlPanel({
           />
         </div>
         <div className="control-row">
-          <label className="control-label">
+          <label htmlFor="input-bg-opacity" className="control-label">
             <span className="control-label-text">Background opacity</span>
             <span className="control-value">{Math.round(settings.bgAlpha * 100)}%</span>
           </label>
-          <input
+          <input id="input-bg-opacity"
             type="range" min={0} max={1} step={0.05}
             value={settings.bgAlpha}
             style={rangePct(settings.bgAlpha, 0, 1)}
@@ -454,10 +454,10 @@ export default memo(function ControlPanel({
           />
         </div>
         <div className="control-row">
-          <label className="control-label">
+          <label htmlFor="input-font-family" className="control-label">
             <span className="control-label-text">Font family</span>
           </label>
-          <select
+          <select id="input-font-family"
             value={settings.fontFamily}
             onChange={(e) => onChange({ fontFamily: e.target.value })}
           >
@@ -467,10 +467,10 @@ export default memo(function ControlPanel({
           </select>
         </div>
         <div className="control-row">
-          <label className="control-label">
+          <label htmlFor="input-font-weight" className="control-label">
             <span className="control-label-text">Font weight</span>
           </label>
-          <select
+          <select id="input-font-weight"
             value={settings.fontWeight}
             onChange={(e) => onChange({ fontWeight: e.target.value })}
           >
@@ -480,10 +480,10 @@ export default memo(function ControlPanel({
           </select>
         </div>
         <div className="control-row">
-          <label className="control-label">
+          <label htmlFor="input-spiral" className="control-label">
             <span className="control-label-text">Spiral</span>
           </label>
-          <select
+          <select id="input-spiral"
             value={settings.spiral}
             onChange={(e) => onChange({ spiral: e.target.value as SpiralType })}
           >
@@ -492,11 +492,11 @@ export default memo(function ControlPanel({
           </select>
         </div>
         <div className="control-row">
-          <label className="control-label">
+          <label htmlFor="input-word-padding" className="control-label">
             <span className="control-label-text">Word padding</span>
             <span className="control-value">{settings.padding}px</span>
           </label>
-          <input
+          <input id="input-word-padding"
             type="range" min={0} max={20} step={1}
             value={settings.padding}
             style={rangePct(settings.padding, 0, 20)}
@@ -513,10 +513,10 @@ export default memo(function ControlPanel({
           <span className="section-arrow" />
         </summary>
         <div className="control-row">
-          <label className="control-label">
+          <label htmlFor="input-rotation-mode" className="control-label">
             <span className="control-label-text">Mode</span>
           </label>
-          <select
+          <select id="input-rotation-mode"
             value={settings.rotationMode}
             onChange={(e) => onChange({ rotationMode: e.target.value as RotationMode })}
           >
@@ -527,11 +527,11 @@ export default memo(function ControlPanel({
         </div>
         {settings.rotationMode !== 'none' && (
           <div className="control-row">
-            <label className="control-label">
-              <span className="control-label-text">Rotation probability</span>
+            <label htmlFor="input-rotation-prob" className="control-label">
+            <span className="control-label-text">Rotation probability</span>
               <span className="control-value">{Math.round(settings.rotationProbability * 100)}%</span>
             </label>
-            <input
+            <input id="input-rotation-prob"
               type="range" min={0} max={1} step={0.05}
               value={settings.rotationProbability}
               style={rangePct(settings.rotationProbability, 0, 1)}
@@ -549,10 +549,10 @@ export default memo(function ControlPanel({
           <span className="section-arrow" />
         </summary>
         <div className="control-row">
-          <label className="control-label">
+          <label htmlFor="input-color-mode" className="control-label">
             <span className="control-label-text">Color mode</span>
           </label>
-          <select
+          <select id="input-color-mode"
             value={settings.colorMode}
             onChange={(e) => onChange({ colorMode: e.target.value as ColorMode })}
           >
@@ -575,10 +575,10 @@ export default memo(function ControlPanel({
         )}
         {settings.colorMode !== 'single' && (
           <div className="control-row">
-            <label className="control-label">
-              <span className="control-label-text">Palette</span>
+            <label htmlFor="input-palette" className="control-label">
+            <span className="control-label-text">Palette</span>
             </label>
-            <select
+            <select id="input-palette"
               value={settings.paletteIndex}
               onChange={(e) => onChange({ paletteIndex: +e.target.value })}
             >
@@ -594,11 +594,11 @@ export default memo(function ControlPanel({
           </div>
         )}
         <div className="control-row">
-          <label className="control-label">
+          <label htmlFor="input-word-opacity" className="control-label">
             <span className="control-label-text">Word opacity</span>
             <span className="control-value">{Math.round(settings.wordAlpha * 100)}%</span>
           </label>
-          <input
+          <input id="input-word-opacity"
             type="range" min={0.1} max={1} step={0.05}
             value={settings.wordAlpha}
             style={rangePct(settings.wordAlpha, 0.1, 1)}
@@ -615,10 +615,10 @@ export default memo(function ControlPanel({
           <span className="section-arrow" />
         </summary>
         <div className="control-row">
-          <label className="control-label">
+          <label htmlFor="input-shape" className="control-label">
             <span className="control-label-text">Shape</span>
           </label>
-          <select
+          <select id="input-shape"
             value={settings.maskShape}
             onChange={(e) => onChange({ maskShape: e.target.value as MaskShape, customMaskUrl: null })}
           >

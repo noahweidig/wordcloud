@@ -1280,6 +1280,10 @@ input[type="color"]:focus-visible {
     flex-wrap: wrap;
   }
 
+  .empty-state-actions {
+    width: 100%;
+  }
+
   .button-row {
     flex-wrap: wrap;
   }

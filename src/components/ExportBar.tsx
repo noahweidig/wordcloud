@@ -78,11 +78,11 @@ function ExportBar({ canvasRef, showToast, hasWords }: Props) {
       </button>
 
       <button
-        className={`btn btn-small ${hasWords ? 'btn-highlight' : ''}`}
+        className={`btn btn-small ${hasWords ? 'btn-highlight btn-accent-ring' : ''}`}
         onClick={copyToClipboard}
         disabled={!hasWords}
         title={disabledTitle ?? 'Copy image to clipboard'}
-        aria-label={hasWords ? 'Copy image – quick share' : 'Copy image'}
+        aria-label={hasWords ? 'Copy image – important quick share' : 'Copy image'}
       >
         <CopyIcon />
         Copy

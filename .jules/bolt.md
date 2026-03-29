@@ -30,3 +30,7 @@
 ## 2025-03-22 - [Regex Execution for Heavy Tokenization]
 **Learning:** Using `String.prototype.match(/.../g)` on extremely large texts creates a massive intermediate array containing all matches simultaneously, causing significant garbage collection overhead and memory spikes.
 **Action:** When parsing large text bodies into tokens, use a `while ((match = regex.exec(text)) !== null)` loop. This processes tokens iteratively and pushes them directly to the final data structure, avoiding the huge intermediate allocation array.
+
+## 2026-03-29 - [Early Return in Sorted Arrays]
+**Learning:** Iterating through an entire pre-sorted array when filtering by a descending threshold is a common anti-pattern that creates unnecessary O(n) traversal.
+**Action:** When filtering a collection that is already sorted, always use an early `break` condition once the items no longer meet the threshold. This reduces complexity to O(K) where K is the number of matched items.

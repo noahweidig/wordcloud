@@ -100,11 +100,16 @@ export function filterWords(
   // Replaced `words.filter().slice()` with a single for loop.
   // This avoids creating a large intermediate array and allows early exit
   // when maxWords is reached, reducing complexity from O(N) to O(min(N, maxWords)).
+  // ⚡ Additional Optimization:
+  // Since `words` array is sorted by count descending, we can also early exit
+  // when the count drops below `minFreq`, further reducing traversal time.
   const result: WordFrequency[] = [];
   for (let i = 0; i < words.length; i++) {
     if (result.length >= maxWords) break;
     if (words[i].count >= minFreq) {
       result.push(words[i]);
+    } else {
+      break; // Sorted descending, so no subsequent words will meet minFreq
     }
   }
   return result;

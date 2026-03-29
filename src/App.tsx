@@ -215,8 +215,8 @@ function App() {
                 </div>
                 <h2>WordCloud Studio</h2>
                 <p>
-                  Create beautiful, customizable word clouds in seconds.<br />
-                  {settings.text.trim() ? 'Generate your word cloud.' : 'Add text to get started.'}
+                  Visualize themes in your text.<br />
+                  {settings.text.trim() ? 'Click Generate to begin.' : 'Add text to start.'}
                 </p>
                 <div className="empty-state-actions button-row">
                   {settings.text.trim() ? (

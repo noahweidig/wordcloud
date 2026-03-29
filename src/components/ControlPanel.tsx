@@ -254,8 +254,9 @@ export default memo(function ControlPanel({
           />
         </div>
         <div className="control-row">
-          <label className="toggle">
+          <label className="toggle" htmlFor="toggle-remove-stopwords">
             <input
+              id="toggle-remove-stopwords"
               type="checkbox"
               checked={settings.removeStopwords}
               onChange={(e) => onChange({ removeStopwords: e.target.checked })}
@@ -264,8 +265,9 @@ export default memo(function ControlPanel({
           </label>
         </div>
         <div className="control-row">
-          <label className="toggle">
+          <label className="toggle" htmlFor="toggle-lowercase">
             <input
+              id="toggle-lowercase"
               type="checkbox"
               checked={settings.lowercase}
               onChange={(e) => onChange({ lowercase: e.target.checked })}
@@ -274,8 +276,9 @@ export default memo(function ControlPanel({
           </label>
         </div>
         <div className="control-row">
-          <label className="toggle">
+          <label className="toggle" htmlFor="toggle-remove-numbers">
             <input
+              id="toggle-remove-numbers"
               type="checkbox"
               checked={settings.removeNumbers}
               onChange={(e) => onChange({ removeNumbers: e.target.checked })}

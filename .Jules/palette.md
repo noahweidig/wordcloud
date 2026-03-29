@@ -33,3 +33,7 @@
 ## 2024-11-20 - Abbreviated Labels and Hit Areas
 **Learning:** Abbreviated inline labels (like "W:" and "H:") conserve space visually but degrade accessibility in two ways: they reduce the clickable hit area for mouse users, and they provide confusing, unhelpful context for screen readers when linked to inputs.
 **Action:** Always link visual labels to their form inputs using `htmlFor` and `id` to expand the clickable hit area. For abbreviated visual labels, add an explicit, fully expanded `aria-label` (e.g., "Canvas Width") directly to the input to ensure screen readers provide clear context.
+
+## 2024-11-20 - Explicit Checkbox Association
+**Learning:** Even when wrapping an `<input type="checkbox">` in a `<label>` (implicit association), some specific screen readers and voice control tools struggle to correctly map the label to the input, leading to a degraded accessible experience.
+**Action:** Always provide explicit association by adding an `id` to the `<input>` and `htmlFor` to the wrapping `<label>`. This ensures robust support across all assistive technologies.

@@ -2,6 +2,7 @@ import { useRef, memo } from 'react';
 import type { CloudSettings, ScaleMode, SpiralType, RotationMode, ColorMode, MaskShape, PresetName } from '../types';
 import { CANVAS_PRESETS, FONT_FAMILIES, FONT_WEIGHTS, PRESETS } from '../types';
 import { PALETTES } from '../utils/palettes';
+import { Type, BarChart3, SlidersHorizontal, RotateCw, Palette, Shapes, Sparkles, Shuffle, Upload, Eraser, Loader2, Wand2 } from 'lucide-react';
 import type { CloudStats } from '../hooks/useWordCloud';
 
 interface Props {
@@ -17,64 +18,6 @@ interface Props {
 /** Compute CSS custom property value for range input fill */
 function rangePct(value: number, min: number, max: number): React.CSSProperties {
   return { '--val': `${((value - min) / (max - min)) * 100}%` } as React.CSSProperties;
-}
-
-/* ── Section icon SVGs ── */
-function IconText() {
-  return (
-    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M1.5 2.5h10M6.5 2.5v8M4 10.5h5"/>
-    </svg>
-  );
-}
-
-function IconWeight() {
-  return (
-    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="1" y="8.5" width="2.5" height="3" rx="0.5"/>
-      <rect x="5.25" y="5.5" width="2.5" height="6" rx="0.5"/>
-      <rect x="9.5" y="2.5" width="2.5" height="9" rx="0.5"/>
-    </svg>
-  );
-}
-
-function IconAppearance() {
-  return (
-    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
-      <circle cx="6.5" cy="6.5" r="5"/>
-      <path d="M6.5 1.5v1.8M6.5 9.7v1.8M1.5 6.5h1.8M9.7 6.5h1.8"/>
-    </svg>
-  );
-}
-
-function IconRotation() {
-  return (
-    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M10.5 2.5v3H7.5"/>
-      <path d="M2.5 6.5a4 4 0 007.9-.8"/>
-      <path d="M2.5 10.5v-3h3"/>
-      <path d="M10.5 6.5a4 4 0 01-7.9.8"/>
-    </svg>
-  );
-}
-
-function IconColors() {
-  return (
-    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" strokeWidth="1.6">
-      <circle cx="4" cy="4" r="2.2"/>
-      <circle cx="9" cy="4" r="2.2"/>
-      <circle cx="4" cy="9" r="2.2"/>
-      <circle cx="9" cy="9" r="2.2"/>
-    </svg>
-  );
-}
-
-function IconMask() {
-  return (
-    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M6.5 1.2l1.5 3 3.3.5-2.4 2.3.6 3.3-3-1.6-3 1.6.6-3.3L1.7 4.7l3.3-.5z"/>
-    </svg>
-  );
 }
 
 // ⚡ Bolt Optimization:
@@ -159,18 +102,12 @@ export default memo(function ControlPanel({
           >
             {generating ? (
               <>
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" style={{ animation: 'spin 0.7s linear infinite' }}>
-                  <circle cx="6.5" cy="6.5" r="5" stroke="rgba(255,255,255,0.3)" strokeWidth="2"/>
-                  <path d="M6.5 1.5a5 5 0 015 5" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
+                <Loader2 size={15} className="spin-icon" aria-hidden="true" />
                 Generating…
               </>
             ) : (
               <>
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M2 6.5C2 4 4 2 6.5 2S11 4 11 6.5 9 11 6.5 11"/>
-                  <path d="M1 9.5l2 2 2-2"/>
-                </svg>
+                <Sparkles size={15} aria-hidden="true" />
                 Generate
                 <kbd className="shortcut-hint" aria-hidden="true">
                   {typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.userAgent) ? '⌘ ↵' : 'Ctrl ↵'}
@@ -179,15 +116,13 @@ export default memo(function ControlPanel({
             )}
           </button>
           <button className="btn btn-secondary btn-accent-ring" onClick={onRandomize} title="Randomize settings and generate">
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 1h3v3M1 9l3 3h-3M12 1L7.5 5.5M1 1l4.5 4.5M9 12h3v-3"/>
-            </svg>
+            <Shuffle size={15} aria-hidden="true" />
             Randomize
           </button>
         </div>
         <div className="preset-row">
           <span style={{ fontSize: '10px', fontWeight: 600, color: 'var(--text-muted)', alignSelf: 'center', textTransform: 'uppercase', letterSpacing: '0.5px', marginRight: '2px' }}>
-            <span style={{ color: 'var(--primary)', marginRight: '4px', fontSize: '11px' }} aria-hidden="true">✨</span>
+            <Wand2 size={12} className="preset-icon" aria-hidden="true" />
             Presets:
           </span>
           <button className="btn btn-chip" onClick={() => applyPreset('minimal')}>Minimal</button>
@@ -199,7 +134,7 @@ export default memo(function ControlPanel({
       {/* Text Input */}
       <details className="section" open>
         <summary className="section-title">
-          <span className="section-icon"><IconText /></span>
+          <span className="section-icon"><Type size={15} aria-hidden="true" /></span>
           <span className="section-title-text">Text Input</span>
           <span className="section-arrow" />
         </summary>
@@ -223,9 +158,7 @@ export default memo(function ControlPanel({
         <div className="control-row">
           <div className="button-row">
             <button className="btn btn-small btn-highlight" onClick={() => fileInputRef.current?.click()} aria-label="Upload text file">
-              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5.5 1v6M2.5 4l3-3 3 3M1 9h9"/>
-              </svg>
+              <Upload size={13} aria-hidden="true" />
               Upload .txt
             </button>
             <button
@@ -242,6 +175,7 @@ export default memo(function ControlPanel({
               disabled={!settings.text}
               title="Clear text"
             >
+              <Eraser size={13} aria-hidden="true" />
               Clear
             </button>
           </div>
@@ -324,7 +258,7 @@ export default memo(function ControlPanel({
       {/* Word Weighting */}
       <details className="section">
         <summary className="section-title">
-          <span className="section-icon"><IconWeight /></span>
+          <span className="section-icon"><BarChart3 size={15} aria-hidden="true" /></span>
           <span className="section-title-text">Word Weighting</span>
           <span className="section-arrow" />
         </summary>
@@ -394,7 +328,7 @@ export default memo(function ControlPanel({
       {/* Appearance */}
       <details className="section">
         <summary className="section-title">
-          <span className="section-icon"><IconAppearance /></span>
+          <span className="section-icon"><SlidersHorizontal size={15} aria-hidden="true" /></span>
           <span className="section-title-text">Appearance</span>
           <span className="section-arrow" />
         </summary>
@@ -511,7 +445,7 @@ export default memo(function ControlPanel({
       {/* Rotation */}
       <details className="section">
         <summary className="section-title">
-          <span className="section-icon"><IconRotation /></span>
+          <span className="section-icon"><RotateCw size={15} aria-hidden="true" /></span>
           <span className="section-title-text">Rotation</span>
           <span className="section-arrow" />
         </summary>
@@ -547,7 +481,7 @@ export default memo(function ControlPanel({
       {/* Colors */}
       <details className="section">
         <summary className="section-title">
-          <span className="section-icon"><IconColors /></span>
+          <span className="section-icon"><Palette size={15} aria-hidden="true" /></span>
           <span className="section-title-text">Colors</span>
           <span className="section-arrow" />
         </summary>
@@ -613,7 +547,7 @@ export default memo(function ControlPanel({
       {/* Shape Mask */}
       <details className="section">
         <summary className="section-title">
-          <span className="section-icon"><IconMask /></span>
+          <span className="section-icon"><Shapes size={15} aria-hidden="true" /></span>
           <span className="section-title-text">Shape Mask</span>
           <span className="section-arrow" />
         </summary>
@@ -642,9 +576,7 @@ export default memo(function ControlPanel({
                 onClick={() => maskFileRef.current?.click()}
                 aria-label="Upload custom PNG mask"
               >
-                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5.5 1v6M2.5 4l3-3 3 3M1 9h9"/>
-                </svg>
+                <Upload size={13} aria-hidden="true" />
                 {settings.customMaskUrl ? 'Change .png' : 'Upload .png'}
               </button>
             </div>

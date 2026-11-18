@@ -1458,3 +1458,18 @@ input[type="color"]:focus-visible {
     display: none;
   }
 }
+
+/* ===== Lucide icon helpers ===== */
+.btn svg, .btn-small svg, .btn-chip svg { flex-shrink: 0; }
+.btn, .btn-small { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.spin-icon { animation: spin 0.8s linear infinite; }
+.preset-icon { color: var(--primary); margin-right: 4px; vertical-align: -1px; }
+.mobile-menu-toggle { line-height: 0; }
+.empty-state-icon { width: 72px; height: 72px; background: var(--primary-faint); border-color: var(--primary-subtle); box-shadow: var(--shadow-md), 0 0 0 8px var(--primary-faint); }
+.empty-state h2 { font-size: 24px; }
+.section-title { letter-spacing: 0.3px; }
+.section-icon { width: 24px; height: 24px; justify-content: center; border-radius: 7px; background: var(--primary-faint); opacity: 1; }
+.export-bar { justify-content: center; padding: 12px 16px; box-shadow: 0 -4px 16px rgba(0,0,0,0.03); }
+.canvas-container { border-radius: var(--radius); box-shadow: var(--shadow-md); border: 1px solid var(--border); }
+.theme-toggle svg { transition: transform var(--transition-md); }
+.theme-toggle:hover svg { transform: rotate(18deg); }

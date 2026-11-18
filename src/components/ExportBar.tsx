@@ -1,27 +1,11 @@
 import { memo } from 'react';
+import { Download, Copy, ImageDown } from 'lucide-react';
 import type { CanvasHandle } from './WordCloudCanvas';
 
 interface Props {
   canvasRef: React.RefObject<CanvasHandle | null>;
   showToast: (message: string, type?: 'success' | 'error' | 'info') => void;
   hasWords: boolean;
-}
-
-function DownloadIcon() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M6 1v7M3 5.5L6 8.5l3-3M1 10h10"/>
-    </svg>
-  );
-}
-
-function CopyIcon() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="4.5" y="4.5" width="6" height="6" rx="1"/>
-      <path d="M7.5 4.5V3A1.5 1.5 0 006 1.5H3A1.5 1.5 0 001.5 3v3A1.5 1.5 0 003 7.5h1.5"/>
-    </svg>
-  );
 }
 
 function ExportBar({ canvasRef, showToast, hasWords }: Props) {
@@ -62,7 +46,7 @@ function ExportBar({ canvasRef, showToast, hasWords }: Props) {
         title={disabledTitle ?? 'Export PNG with background'}
         aria-label={hasWords ? 'Export PNG – ready' : 'Export PNG'}
       >
-        <DownloadIcon />
+        <Download size={14} aria-hidden="true" />
         PNG
         {hasWords && <span className="notification-badge" aria-hidden="true" />}
       </button>
@@ -73,7 +57,7 @@ function ExportBar({ canvasRef, showToast, hasWords }: Props) {
         disabled={!hasWords}
         title={disabledTitle ?? 'Export PNG with transparent background'}
       >
-        <DownloadIcon />
+        <ImageDown size={14} aria-hidden="true" />
         Transparent
       </button>
 
@@ -84,7 +68,7 @@ function ExportBar({ canvasRef, showToast, hasWords }: Props) {
         title={disabledTitle ?? 'Copy image to clipboard'}
         aria-label={hasWords ? 'Copy image – important quick share' : 'Copy image'}
       >
-        <CopyIcon />
+        <Copy size={14} aria-hidden="true" />
         Copy
       </button>
     </div>

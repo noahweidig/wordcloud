@@ -2,7 +2,7 @@ export type ScaleMode = 'linear' | 'sqrt' | 'log';
 export type SpiralType = 'archimedean' | 'rectangular';
 export type RotationMode = 'none' | 'random' | 'fixed' | 'custom';
 export type ColorMode = 'single' | 'palette' | 'gradient' | 'random';
-export type MaskShape = 'none' | 'circle' | 'heart' | 'star' | 'speech-bubble' | 'cloud' | 'custom';
+export type MaskShape = 'none' | 'circle' | 'heart' | 'star' | 'speech-bubble' | 'cloud' | 'custom' | 'icon';
 export type PresetName = 'minimal' | 'vibrant' | 'poster';
 
 export interface CloudSettings {
@@ -43,6 +43,7 @@ export interface CloudSettings {
   // Mask
   maskShape: MaskShape;
   customMaskUrl: string | null;
+  maskIcon: string | null;
 
   // Font size range
   minFontSize: number;
@@ -74,6 +75,7 @@ export const DEFAULT_SETTINGS: CloudSettings = {
   padding: 2,
   maskShape: 'none',
   customMaskUrl: null,
+  maskIcon: null,
   minFontSize: 12,
   maxFontSize: 80,
 };

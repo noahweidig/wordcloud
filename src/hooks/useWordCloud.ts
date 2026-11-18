@@ -123,7 +123,7 @@ export function useWordCloud() {
         maskCanvas.width = settings.canvasWidth;
         maskCanvas.height = settings.canvasHeight;
 
-        if (settings.maskShape === 'custom' && settings.customMaskUrl) {
+        if ((settings.maskShape === 'custom' || settings.maskShape === 'icon') && settings.customMaskUrl) {
           try {
             maskCanvas = await loadCustomMask(
               settings.customMaskUrl,
@@ -134,7 +134,7 @@ export function useWordCloud() {
             // Fall back to no mask
             maskCanvas = null;
           }
-        } else if (settings.maskShape !== 'custom') {
+        } else if (settings.maskShape !== 'custom' && settings.maskShape !== 'icon') {
           const ctx = maskCanvas.getContext('2d')!;
           drawBuiltInMask(ctx, settings.maskShape, settings.canvasWidth, settings.canvasHeight);
         }

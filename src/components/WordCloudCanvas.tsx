@@ -205,13 +205,13 @@ async function applyMaskClip(canvas: HTMLCanvasElement, maskShape: MaskShape, cu
   // Create mask canvas
   let maskCanvas: HTMLCanvasElement;
 
-  if (maskShape === 'custom' && customMaskUrl) {
+  if ((maskShape === 'custom' || maskShape === 'icon') && customMaskUrl) {
     try {
       maskCanvas = await loadCustomMask(customMaskUrl, w, h);
     } catch {
       return;
     }
-  } else if (maskShape !== 'none' && maskShape !== 'custom') {
+  } else if (maskShape !== 'none' && maskShape !== 'custom' && maskShape !== 'icon') {
     maskCanvas = document.createElement('canvas');
     maskCanvas.width = w;
     maskCanvas.height = h;

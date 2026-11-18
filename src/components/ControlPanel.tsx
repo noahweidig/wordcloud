@@ -1,4 +1,4 @@
-import { useRef, memo } from 'react';
+import { useRef, memo, lazy, Suspense } from 'react';
 import type { CloudSettings, ScaleMode, SpiralType, RotationMode, ColorMode, MaskShape, PresetName } from '../types';
 import { CANVAS_PRESETS, FONT_FAMILIES, FONT_WEIGHTS, PRESETS } from '../types';
 import { PALETTES } from '../utils/palettes';
@@ -19,6 +19,8 @@ interface Props {
 function rangePct(value: number, min: number, max: number): React.CSSProperties {
   return { '--val': `${((value - min) / (max - min)) * 100}%` } as React.CSSProperties;
 }
+
+const IconPicker = lazy(() => import('./IconPicker'));
 
 // ⚡ Bolt Optimization:
 // Wrapped the complex ControlPanel in React.memo to prevent expensive re-renders
@@ -557,7 +559,7 @@ export default memo(function ControlPanel({
           </label>
           <select id="input-shape"
             value={settings.maskShape}
-            onChange={(e) => onChange({ maskShape: e.target.value as MaskShape, customMaskUrl: null })}
+            onChange={(e) => onChange({ maskShape: e.target.value as MaskShape, customMaskUrl: null, maskIcon: null })}
           >
             <option value="none">None</option>
             <option value="circle">Circle</option>
@@ -565,6 +567,7 @@ export default memo(function ControlPanel({
             <option value="star">Star</option>
             <option value="speech-bubble">Speech Bubble</option>
             <option value="cloud">Cloud</option>
+            <option value="icon">Icon (Lucide)…</option>
             <option value="custom">Custom PNG…</option>
           </select>
         </div>
@@ -588,6 +591,17 @@ export default memo(function ControlPanel({
               onChange={handleMaskUpload}
             />
           </div>
+        )}
+        {settings.maskShape === 'icon' && (
+          <Suspense fallback={<div className="icon-picker-loading">Loading icons…</div>}>
+            <IconPicker
+              value={settings.maskIcon}
+              width={settings.canvasWidth}
+              height={settings.canvasHeight}
+              onPick={(name, url) => onChange({ maskIcon: name, customMaskUrl: url })}
+              onError={onError}
+            />
+          </Suspense>
         )}
       </details>
 

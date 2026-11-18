@@ -6,44 +6,8 @@ import { useWordCloud } from './hooks/useWordCloud';
 import ControlPanel from './components/ControlPanel';
 import WordCloudCanvas, { type CanvasHandle } from './components/WordCloudCanvas';
 import ExportBar from './components/ExportBar';
+import { Cloud, Sun, Moon, Menu, X } from 'lucide-react';
 import './App.css';
-
-function CloudIcon({ size = 18 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M20 17.5A4.5 4.5 0 0015.5 13h-.75A6 6 0 104 17.5"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M4 17.5h12.5"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function SunIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2"/>
-      <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-    </svg>
-  );
-}
-
-function MoonIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  );
-}
 
 // Sample text for demo
 const SAMPLE_TEXT = `The quick brown fox jumps over the lazy dog. Technology innovation software development programming code algorithm data structure machine learning artificial intelligence neural network deep learning natural language processing computer vision cloud computing web development frontend backend database server client API framework library component function variable object class interface type module package import export async await promise callback event loop thread process memory stack heap queue array linked list hash map tree graph binary search sort merge quick heap insertion selection bubble algorithm complexity time space optimal efficient scalable distributed parallel concurrent asynchronous synchronous reactive functional object oriented procedural declarative imperative paradigm pattern design architecture microservice monolith container orchestration deployment continuous integration delivery testing unit integration end to end performance security authentication authorization encryption protocol HTTP REST GraphQL WebSocket TCP UDP DNS SSL TLS certificate domain server client request response header body status code middleware router controller model view template engine render component state props lifecycle hook effect context reducer store action dispatch subscribe provider consumer middleware thunk saga observable stream pipe filter map reduce transform aggregate query mutation subscription schema resolver directive fragment union interface enum scalar input type field argument default value validation pagination cursor offset limit sort order ascending descending filter search index cache invalidation refresh token session cookie storage local session indexed database query optimization join relationship foreign key primary key unique constraint index trigger stored procedure transaction rollback commit isolation level consistency durability availability partition tolerance consensus replication sharding cluster node leader follower election heartbeat timeout retry circuit breaker rate limit throttle backpressure buffer overflow memory leak garbage collection reference counting mark sweep compact generation nursery survivor tenure`;
@@ -147,7 +111,7 @@ function App() {
       <header className="mobile-header">
         <div className="mobile-header-brand">
           <div className="mobile-brand-icon">
-            <CloudIcon size={16} />
+            <Cloud size={18} aria-hidden="true" />
           </div>
           <span className="mobile-header-title">WordCloud Studio</span>
         </div>
@@ -156,7 +120,7 @@ function App() {
           onClick={toggleDarkMode}
           aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
         >
-          {darkMode ? <SunIcon /> : <MoonIcon />}
+          {darkMode ? <Sun size={16} aria-hidden="true" /> : <Moon size={16} aria-hidden="true" />}
         </button>
       </header>
 
@@ -173,7 +137,7 @@ function App() {
         <div className="sidebar-header">
           <div className="sidebar-brand">
             <div className="brand-icon">
-              <CloudIcon size={16} />
+              <Cloud size={18} aria-hidden="true" />
             </div>
             <span className="brand-name">WordCloud Studio</span>
           </div>
@@ -182,7 +146,7 @@ function App() {
             onClick={toggleDarkMode}
             aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
           >
-            {darkMode ? <SunIcon /> : <MoonIcon />}
+            {darkMode ? <Sun size={16} aria-hidden="true" /> : <Moon size={16} aria-hidden="true" />}
           </button>
         </div>
 
@@ -207,11 +171,7 @@ function App() {
             {words.length === 0 && !generating && (
               <div className="empty-state">
                 <div className="empty-state-icon">
-                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                    <path d="M26 11.5a7 7 0 00-13.56-2.33A5.5 5.5 0 106 20.5h20a4.5 4.5 0 000-9z" fill="currentColor" opacity="0.15"/>
-                    <path d="M26 11.5a7 7 0 00-13.56-2.33A5.5 5.5 0 106 20.5h20a4.5 4.5 0 000-9z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-                    <path d="M13 26l3-4 3 4M16 22v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+                  <Cloud size={32} strokeWidth={1.5} aria-hidden="true" />
                 </div>
                 <h2>WordCloud Studio</h2>
                 <p>
@@ -264,11 +224,7 @@ function App() {
         aria-label={sidebarOpen ? 'Close settings' : 'Open settings'}
         style={{ overflow: 'visible' }}
       >
-        <div className="menu-icon">
-          <span />
-          <span />
-          <span />
-        </div>
+        {sidebarOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
         {!sidebarOpen && <span className="notification-badge" aria-hidden="true" />}
       </button>
 
